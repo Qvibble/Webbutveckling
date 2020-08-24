@@ -1,0 +1,25 @@
+.wrapper{
+    margin-right: auto;
+    margin-left: auto;
+
+    max-width: auto;
+
+    background-color: gray;
+    min-height: 100%;
+}
+
+html, body{
+    height: 100%;
+}
+
+.top-rounded{
+    border-top-right-radius: 6px;
+    border-top-left-radius: 6px;
+}
+
+.rounded{
+    border-top-left-radius: 6px;
+    border-bottom-left-radius: 6px;
+    border-top-right-radius: 6px;
+    border-bottom-right-radius: 6px;
+}

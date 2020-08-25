@@ -3,8 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./CSS/bulma.css">
-    <link rel="stylesheet" href="./CSS/webb.css">
+    <link rel="stylesheet" href="../CSS/bulma.css">
+    <link rel="stylesheet" href="../CSS/webb.css">
+    <script type="text/javascript" src="./JS/script.js"></script>
     <title>Webbutveckling</title>
 </head>
 <div class="wrapper">
@@ -12,11 +13,11 @@
         <selection class="hero">
             <div class="hero-body">
                 <div class="container has-text-centered is-size-2">
-                    <a  href="Index.html">
-                       <div class="card rounded has-text-grey-darker">
-                        <strong>Webbutveckling</strong>
-                        </div> 
-                    </a>
+                    <a  href="../Index.html">
+                        <div class="card rounded has-text-grey-darker">
+                         <strong>Webbutveckling</strong>
+                         </div> 
+                     </a>
                 </div>
             </div>
         </selection>       
@@ -53,15 +54,18 @@
         </nav>-->
         <main class="container has-background-primary rounded">
             <div class="box">
-                <div class="columns has-text-centered">                   
+                <div class="columns has-text-centered">
                     <div class="column">
                         <strong>
-                            <a class="button is-primary" href="./Uppgift 4/Uppgift4.html">
+                            <a class="button is-primary" href="Uppgift4.html">
                                 Uppgift 4
                             </a>
                         </strong>
-                    </div>                   
+                    </div>
                 </div>
+            </div>
+            <div class="box has-text-centered is-size-3">
+                <strong>Uppgift 4</strong>
             </div>
             <div class="box">
                 <div class="columns">
@@ -69,13 +73,28 @@
                     <div class="column is-half">
                         <div class="card">
                             <div class="card-content is-size-5">
-                                <p>Alla uppgifter som skapas under webbutvecklingen kommer att länkas från den här sidan.</p>
+                                <h2>Beräkning av area och längder</h2>
+                                <p>Ange längd och bredd för ytan:</p>
+                                <br>
+                                <form id="inputForm"> <!-- Textfält för att ge indata -->
+                                    <p><label for="input1">Längd: </label><input type="text" id="input1"> meter</p>
+                                    <p><label for="input2">Bredd: </label><input type="text" id="input2"> meter</p>
+                                    <br>
+                                    <div class="button is-success" id="rectBtn">Kör programmet för rektangel</div>
+                                    <div class="button is-success" id="ellipBtn">Kör programmet för ellips</div>
+                                    <div class="button is-success" id="triBtn">Kör programmet för triangel</div>
+                                    <div class="button is-success" id="conBtn">Kör programmet för längd konvertering</div>
+                                </form>
+                                <hr>
+                                <p><strong>Resultat:</strong></p>
+                                <section id="result"></section> <!-- Resultatet av programmet ska skrivas i detta div-element. -->
                             </div>
                         </div>    
                     </div>
                     <div class="column is-half">
                         <div class="card">
                             <div class="card-content">
+                                <img src="pics/shapes.png" alt="Form för rektangel, ellips och triangel">
                             </div>
                         </div>
                     </div>

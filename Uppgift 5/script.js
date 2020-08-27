@@ -51,7 +51,7 @@ function checkName(){
     let name = input2.value;
     let answer = "";
 
-    if(isNaN(nr)){
+    if(isNaN(nr) || (nr === 0)){
         answer = "Välj en frukt först";
     }else if((nr <= FRUIT_NR) && (nr >= 1)){
         if(name === fruitNames[parseInt(Number(input1.value))]){

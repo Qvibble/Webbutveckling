@@ -58,14 +58,14 @@ function palindrom(word){
     let palin = true;
     let halfWordLength;
 
-    if((String(word).length % 2) === 0){
+    if((String(word).length % 2) === 0){//Kolla om det är jämnt eller ojämnt, bokstaven i mitten behövs inte 
         halfWordLength = String(word).length / 2;
         
         for(let i = 0; i < halfWordLength; i++){
             document.write(String(word).charAt(i) + "<br>");
             document.write(String(word).charAt((halfWordLength * 2) - (i + 1)) + "<br>");
 
-            if(word.charAt(i) === (word.charAt((halfWordLength * 2) - (i + 1)))){
+            if(word.charAt(i) === (word.charAt((halfWordLength * 2) - (i + 1)))){//Kollar om första och sista bokstaven är samma och jobbar sig innåt mot mitten
                 document.write("samma<br>");
             } else{
                 document.write("ej samma<br>");
@@ -74,13 +74,13 @@ function palindrom(word){
             }
         }
     } else{
-        halfWordLength = (String(word).length - 1) / 2;
+        halfWordLength = (String(word).length - 1) / 2;//Bokstaven i mitten är orelevant
 
         for(let i = 0; i < halfWordLength; i++){
             document.write(String(word).charAt(i) + "<br>");
             document.write(String(word).charAt((halfWordLength * 2) - (i)) + "<br>");
             
-            if(word.charAt(i) === (word.charAt((halfWordLength * 2) - (i)))){
+            if(word.charAt(i) === (word.charAt((halfWordLength * 2) - (i)))){//Kollar om första och sista bokstaven är samma och jobbar sig innåt mot mitten
                 document.write("samma<br>");
             } else{
                 document.write("ej samma<br>");

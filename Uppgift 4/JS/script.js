@@ -32,7 +32,7 @@ function calcTri(){
     result.innerHTML = "<p>Arean på triangeln är " + a + " m<sup>2</sup></p>";
 
     a = (((Number(input1.value)*100)/30.48) * ((Number(input2.value)*100)/30.48)) / 2;
-    result.innerHTML += "<p>Arean på triangeln är " + a + " fot<sup>2</sup></p>";
+    result.innerHTML += "<p>Arean på triangeln är " + Math.round(a * 100) / 100 + " fot<sup>2</sup></p>";
 }
 
 function con(){
@@ -44,6 +44,6 @@ function con(){
 
     for(let i = 0;i<3;i++){
         dist = (Number(input1.value)*100) / conv[i];
-        result.innerHTML += "<p>" + dist + " " + unit[i] + "</p>";
+        result.innerHTML += "<p>" + Math.round(dist * 100) / 100 + " " + unit[i] + "</p>";
     }
 }

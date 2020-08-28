@@ -84,9 +84,9 @@ function addFruits(){
 
     input3.value = amount;
 
-    if(isNaN(nr) || isNaN(amount)){//Kolla om nr faktsikt är ett nummer och inte t.ex en sträng
+    if(isNaN(nr) || isNaN(amount)){//Kolla om nr och ammount faktsikt är nummer och inte t.ex en sträng
         message.innerHTML = "Frukt måste vara vald";
-    }else if((amount <= 9) && (amount >= 1)){//kolla om nr är inom rätt intervall
+    }else if((amount <= 9) && (amount >= 1)){//kolla om amount är inom rätt intervall
         for(let i = 0; i < amount; i++){
             imgList += "<img src='./pics/fruit" + nr +".jpg' alt='frukt'>";
         }

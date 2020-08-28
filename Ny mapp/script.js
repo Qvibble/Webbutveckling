@@ -3,8 +3,10 @@ let input2;
 let result;
 window.onload = init;
 
-let testWord = prompt("ord", "test");
-palindrom(String(testWord));
+hurra(randArr(20));
+
+//let testWord = prompt("ord", "test");
+//palindrom(String(testWord));
 
 
 
@@ -15,9 +17,9 @@ function init(){
 
     document.getElementById("btn").onclick = calcSum;
 
-    calcSum(1, 5);
-    square(4);
-    calcSquareSum(1,5);
+    //calcSum(1, 5);
+    //square(4);
+    //calcSquareSum(1,5);
     //palindrom;
 }
 
@@ -91,4 +93,32 @@ function palindrom(word){
     }
 
     document.write(word + " " + palin + "<br><br><br><br><br>");
+}
+
+function rand(){
+    /*for(let i = 0; i < 100; i++){
+        document.write(Math.round((Math.random()*(max-min)) + 1) + "<br>");
+    }*/
+
+    return (Math.floor((Math.random() * 20)) + 1);
+}
+
+function randArr(count){
+    let arr = [];
+
+    for(let i = 0; i < count; i++){
+        arr[i] = rand();
+
+        document.write((i+1)+ ".  " + arr[i] + "<br>");
+    }
+
+    return arr;
+}
+
+function hurra(array){  
+    for(let i = 0; i < array.length; i++){
+        if(Number(array[i]) > 10){
+            document.write("Hurra, " + array[i] + "<br>");
+        }
+    }
 }

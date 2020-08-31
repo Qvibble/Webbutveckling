@@ -73,9 +73,9 @@ function checkName(){
 
 function getNr(){
     let localNr =  parseInt(Number(input1.value));
-
-    //Behövs ej???????????
-    //Fattar inte 
+    
+    //Istället för att skriva samma kod i flera fynktioner så kan der skrivas här och bara anropas
+    //Men så gjorde inte jag för att jag fattade inte vad getNr hade för funktion när jag redan hade en global nr
 }
 
 function addFruits(){

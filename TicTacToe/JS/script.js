@@ -95,7 +95,7 @@ function isGameWon(){
         if(won === 0){
             gameOver("Won By Plum", "plum");
         }else{
-            gameOver("Won By PaleTurquoise", "plaeTurquoise");
+            gameOver("Won By PaleTurquoise", "paleTurquoise");
         }
     }
 

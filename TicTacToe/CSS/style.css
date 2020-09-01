@@ -1,0 +1,41 @@
+.field{
+    width: 895px;
+    height: 895px;
+    background-color: beige;
+    margin: 0 auto;
+    padding: 10px;
+}
+
+.box{
+    width: 295px;
+    height: 295px;
+    background-color: slategray;
+    display: inline-block;
+}
+
+.box:hover{
+    background-color: steelblue;
+    cursor: pointer;
+}
+
+.winner{
+    margin-top: 250px;
+    font-size: 80px;
+    color: white;
+    font-family: sans-serif;
+}
+
+#gameWon{
+    text-align: center;
+    vertical-align: middle;
+}
+
+.playAgain{
+    width: 250px;
+    height: 100px;
+    background-color: white;
+    color: slategrey;
+    border: none;
+    font-size: 25px;
+    cursor: pointer;
+}

@@ -1,5 +1,6 @@
 var markedBoxes = [-5, -1, -1, -1, -1, -1, -1, -1, -1, -1];
 var even = 0;
+var tie = 0;
 
 let myField;
 
@@ -43,6 +44,8 @@ function mark(){
 function isGameWon(){
     let row = 0;
     let won = -1;
+
+    tie++;
 
     for(let i = 0; i < 3; i++){    //Kollar om någon vunnit vågrätt
         if(markedBoxes[1 + row] === 0 && markedBoxes[2 + row] === 0 && markedBoxes[3 + row] === 0){
@@ -89,34 +92,38 @@ function isGameWon(){
     }
 
     if(won !== -1){
-        for(let i = 1; i <= 9; i++){
-            document.getElementById("btn"+i).remove();
-        }
-
-        let text = document.createElement('p');
-        text.setAttribute("class", "winner");
-
-        let playAgain = document.createElement('button');
-        playAgain.setAttribute("class", "playAgain");
-        playAgain.innerHTML = "Play Again";
-        playAgain.onclick = replay;
-
-        myField.appendChild(text);
-        myField.appendChild(playAgain);
-        myField.id = 'gameWon';
-
         if(won === 0){
-            myField.style.backgroundColor = "plum";
-        
-            text.innerHTML = "Won By Plum";    
+            gameOver("Won By Plum", "plum");
         }else{
-            myField.style.backgroundColor = "paleTurquoise";
-
-            text.innerHTML = "Won By PaleTurquoise";
+            gameOver("Won By PaleTurquoise", "plaeTurquoise");
         }
+    }
+
+    if(tie === 9 && won === -1){
+        gameOver("Tie");
     }
 }
 
 function replay(){
     window.location.reload();
+}
+
+function gameOver(message, colour){
+    for(let i = 1; i <= 9; i++){
+        document.getElementById("btn"+i).remove();
+    }
+
+    let text = document.createElement('p');
+    text.setAttribute("class", "winner");
+    text.innerHTML = message;
+
+    let playAgain = document.createElement('button');
+    playAgain.setAttribute("class", "playAgain");
+    playAgain.innerHTML = "Play Again";
+    playAgain.onclick = replay;
+
+    myField.appendChild(text);
+    myField.appendChild(playAgain);
+    myField.id = 'gameWon';
+    myField.style.backgroundColor = colour;
 }

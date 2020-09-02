@@ -20,6 +20,13 @@ function init(){
     document.getElementById("btn9").onclick = mark;
 }
 
+
+/**
+ * Byter färg på den knapp som klickas på.
+ * Färgen alternerar mellan två olika färger.
+ * Det går inte att markera en knapp som redan klickats på.
+ * Efter en knapp blivit markerad så kollas det om någon vunnit med isGameWon();
+ */
 function mark(){
     let btnId = this.id;
 
@@ -41,6 +48,11 @@ function mark(){
     }
 }
 
+/**
+ * Kollar om tre knappar i rad har blivit markerade av en spelare.
+ * Kollar Vågrätt, Lodrätt och diagonalt.
+ * Har någon vunnit så anropas gameOver(message, colour);
+ */
 function isGameWon(){
     let row = 0;
     let won = -1;
@@ -99,15 +111,23 @@ function isGameWon(){
         }
     }
 
-    if(tie === 9 && won === -1){
+    if(tie === 9 && won === -1){    //Kollar om alla knappar klickats på, har ingen vunnit när alla klickats på så är det oavgjort
         gameOver("Tie");
     }
 }
 
+/**
+ * Laddar om sidan så att spelet startas om.
+ */
 function replay(){
     window.location.reload();
 }
 
+/**
+ * Tar bort de element i myField och visar vem som vunnit.
+ * @param {String} message - Meddelande till game over skärmen
+ * @param {String} colour - Färg på den spelare som vunnits
+ */
 function gameOver(message, colour){
     for(let i = 1; i <= 9; i++){
         document.getElementById("btn"+i).remove();

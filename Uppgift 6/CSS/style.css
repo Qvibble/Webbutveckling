@@ -1,0 +1,50 @@
+.field{
+    width: 700px;
+    background-color: beige;
+    margin: 0 auto;
+    padding: 10px;
+}
+
+.tbox{
+    width: 223px;
+    height: 223px;
+    background-color: slategray;
+    display: inline-block;
+}
+
+.tbox:hover{
+    background-color: steelblue;
+    cursor: pointer;
+}
+
+.winner{
+    margin-top: 150px;
+    font-size: 80px;
+    color: white;
+    font-family: sans-serif;
+}
+
+#gameWon{
+    text-align: center;
+    vertical-align: middle;
+}
+
+.playAgain{
+    width: 250px;
+    height: 100px;
+    background-color: white;
+    color: slategrey;
+    border: none;
+    font-size: 25px;
+    cursor: pointer;
+}
+
+@media screen and (max-width: 769px){
+    .field{
+        width: 100%;
+    }
+
+    .tbox{
+        width: 30%;
+    }
+}

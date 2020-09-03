@@ -1,0 +1,102 @@
+* {
+  box-sizing: border-box;
+}
+
+#content {
+  background: #ddd;
+}
+
+/* Style the body */
+body {
+  font-family: Arial;
+  margin: 0;
+  background: #ddd;
+}
+
+/* Header/logo Title */
+header {
+  padding: 60px;
+  text-align: center;
+  background: #1abc9c;
+  color: white;
+}
+
+/* Style the top navigation bar */
+nav {
+  background-color: #333;
+  padding: 13px 0;
+}
+
+/* Style the navigation bar links */
+nav a {
+  color: white;
+  padding: 14px 20px;
+  text-decoration: none;
+  text-align: center;
+  transition: all .3s;
+}
+
+/* Change color on hover */
+nav a:hover {
+  background-color: #ddd;
+  color: black;
+}
+
+/* Column container */
+.row {  
+    background-color: white;
+    overflow: auto;
+}
+
+/* Create two unequal columns that sits next to each other */
+/* Sidebar/left column */
+.side {
+  float: left;
+  width: 15%;
+  padding: 20px;
+}
+
+/* Main column */
+main {
+  float: left;
+  width: 50%;
+  padding: 20px;
+}
+
+/* Fake image, just for this example */
+.fakeimg {
+  background-color: #aaa;
+  width: 100%;
+  padding: 20px;
+}
+
+/* Footer */
+footer {
+  padding: 20px;
+  text-align: center;
+  background: #ddd;
+}
+
+@media screen and (max-width: 1920px){
+  .side{
+    width: 30%;
+  }
+}
+
+@media screen and (max-width: 1920px){
+  main{
+    width: 70%;
+  }
+}
+
+@media screen and (max-width: 600px){
+  .side, main{
+    float: none;
+    width: 100%;
+  }
+
+  nav a{
+    display: block;
+    padding: 10px;
+  }
+}

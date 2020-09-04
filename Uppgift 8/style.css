@@ -78,14 +78,12 @@ footer {
 }
 
 @media screen and (max-width: 1920px){
-  .side{
-    width: 30%;
-  }
-}
-
-@media screen and (max-width: 1920px){
   main{
     width: 70%;
+  }
+
+  .side{
+    width: 30%;
   }
 }
 

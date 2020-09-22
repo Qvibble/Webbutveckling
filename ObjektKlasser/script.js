@@ -1,12 +1,18 @@
-/*console.log("funkar");
+console.log("funkar");
+
+class ingredient{
+    constructor(ingredient, amount){
+        this.ingredient = ingredient;
+        this.amount = amount;
+    }
+}
+
+let ingredients = [new ingredient("pasta", "27 kg"), new ingredient("vatten", "3 ml"), new ingredient("pastavatten", "58")];
 
 let food = {    //Objekt
     title: "mat",
     rating: 0,
-    ingredients: {
-        name: ["pasta", "vatten", "pastavatten"],
-        amount: ["27kg", "3ml", "58"]
-    },
+    ingredients: ingredients,
     steps: ["aa", "bb"],
     servings: 5
 }
@@ -15,16 +21,16 @@ for(let i = 0; i < food.steps.length; i++){
     console.log(food.steps[i]);
 }
 
-for(let i = 0; i < food.ingredients.amount.length; i++){
-    console.log(food.ingredients.amount[i]);
+for(let i = 0; i < food.ingredients.length; i++){
+    console.log(food.ingredients[i]);
 }
 
-for(let i = 0; i < food.ingredients.name.length; i++){
-    console.log(food.ingredients.name[i]);
-}*/
 
 //Klass
 
+
+
+/*
 class Book{
     constructor(title, author, hasRead){
         this.title = title;
@@ -54,4 +60,4 @@ let book = [new Book("Gamea", "boi", true),
 
 for(let i = 0; i < book.length; i++){
     console.log(book[i].info());
-}
+}*/

@@ -11,6 +11,9 @@ var hangmanImgNr = 0;
 var msgElement = "";
 var startGameButton;
 var letterButtons;
+var oldWord = "";
+var startTime = 0;
+
 window.onload = init; // Se till att init aktiveras då sidan är inladdad
 
 
@@ -33,6 +36,9 @@ function init() {
 }
 
 function startGame(){
+	let now = new Date();
+	startTime = now.getTime();
+
 	msgElement.innerHTML = "";
 
 	randomWord();
@@ -45,11 +51,16 @@ function startGame(){
 }
 
 function endGame(manHanged){
+	let now = new Date();
+	let runTime = (now.getTime() - startTime) / 1000;
+
 	if(manHanged === true){
 		msgElement.innerHTML = "Gubben hängdes, rätt ord var: " + selectedWord;
 	}else{
 		msgElement.innerHTML = "Du gissade rätt";
 	}
+
+	msgElement.innerHTML += "<br/> Tid: " + runTime.toFixed(2) + "sekunder";  
 
 	changeButtonActivation(true);
 }
@@ -66,6 +77,8 @@ function guessLetter(){
 		if(letter === selectedWord.charAt(i)){
 			letterBoxes[i].innerHTML = letter;
 			letterFound = true;
+		}
+		if(letterBoxes[i].innerHTML !== "&nbsp;"){
 			correctLettersCount++;
 		}
 	}
@@ -73,8 +86,7 @@ function guessLetter(){
 	if(letterFound === false){
 		hangmanImg.src = "./pics/h" + ++hangmanImgNr + ".png";
 		
-		if(hangmanImgNr >= 6){
-			hangmanImg.src = "./pics/h" + 6 + ".png";
+		if(hangmanImgNr === 6){
 			endGame(true);
 		}
 	}else if(correctLettersCount === selectedWord.length){
@@ -83,9 +95,15 @@ function guessLetter(){
 }
 
 function randomWord(){
-	let wordIndex = Math.floor(Math.random()*wordList.length);
-	selectedWord = wordList[wordIndex];
-	console.log(selectedWord);
+		let wordIndex = Math.floor(Math.random()*wordList.length);
+		selectedWord = wordList[wordIndex];
+
+		while(oldWord === selectedWord){
+			wordIndex = Math.floor(Math.random()*wordList.length);
+			selectedWord = wordList[wordIndex];
+		}
+
+		oldWord = selectedWord;
 }
 
 function showLetterBoxes(){

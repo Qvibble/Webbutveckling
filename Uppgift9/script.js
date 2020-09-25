@@ -60,7 +60,7 @@ function endGame(manHanged){
 		msgElement.innerHTML = "Du gissade rätt";
 	}
 
-	msgElement.innerHTML += "<br/> Tid: " + runTime.toFixed(2) + "sekunder";  
+	msgElement.innerHTML += "<br/> Tid: " + runTime.toFixed(2) + " sekunder";  
 
 	changeButtonActivation(true);
 }

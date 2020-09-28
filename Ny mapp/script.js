@@ -3,19 +3,17 @@ let input2;
 let result;
 window.onload = init;
 
-hurra(randArr(20));
-
 //let testWord = prompt("ord", "test");
 //palindrom(String(testWord));
 
-
+largestPalindromeProduct();
 
 function init(){
-    input1 = document.getElementById("input1");
+    /*input1 = document.getElementById("input1");
     input2 = document.getElementById("input2");
     result = document.getElementById("result");
 
-    document.getElementById("btn").onclick = calcSum;
+    document.getElementById("btn").onclick = calcSum;*/
 
     //calcSum(1, 5);
     //square(4);
@@ -121,4 +119,67 @@ function hurra(array){
             document.write("Hurra, " + array[i] + "<br>");
         }
     }
+}
+
+
+
+
+
+
+function multiples(){
+    const MAX = 1000;
+    let sum = 0;
+    
+    for(let i = 1; i < MAX; i++){
+        if(3*i < MAX){
+            sum += 3*i;
+        }
+
+        if(5*i < MAX){
+            sum += 5*i;         
+        }
+
+        if(15*i < MAX){
+            sum -= 15*i;
+        }
+    }
+
+    console.log(sum);
+}
+
+function largestPalindromeProduct(){
+    const CHANGE = 1;
+    let palindrome = 0;
+
+    for(let i = 100; i < 1000; i++){
+        for(let o = 100; o < 1000; o++){
+            let product = i * o;
+            let number = (i*o).toString();
+            let uneven;
+
+            if(product%2 === 0){
+                uneven = 0;
+            }else{
+                uneven = 1;
+            }
+
+            for(let j = 0; j < (number.length-uneven) / 2; j++){
+                let start = number.charAt(j);
+                let end = number.charAt((number.length-1) - j);
+
+                if(start.localeCompare(end) === 0){        
+                }else{
+                    break;
+                }
+                
+                if(j === (number.length/2) - 1){
+                    if(product > palindrome){
+                        palindrome = product;    
+                    }    
+                }
+            }
+
+        }
+    }
+    console.log(palindrome);
 }

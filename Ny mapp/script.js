@@ -6,7 +6,7 @@ window.onload = init;
 //let testWord = prompt("ord", "test");
 //palindrom(String(testWord));
 
-largestPalindromeProduct();
+print();
 
 function init(){
     /*input1 = document.getElementById("input1");
@@ -182,4 +182,28 @@ function largestPalindromeProduct(){
         }
     }
     console.log(palindrome);
+}
+
+function print(){
+    for(let i = 1; i <= 15; i++){
+        console.log(fizzBuzz(i));
+    }
+}
+
+function fizzBuzz(nr){
+    let result = "";
+
+    if(nr%3 === 0){
+        result = "fizz";
+    }
+    
+    if(nr%5 === 0){
+        result += "buzz";
+    }
+
+    if(result === ""){
+        result = nr;
+    }
+
+    return result;
 }

@@ -1,0 +1,139 @@
+body{
+    background-color: yellow;
+}
+
+header{
+    width: 100%;
+    background-color: lightgray;
+    text-align: center;
+    color: white;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    margin-bottom: 15px;
+}
+
+nav{
+    width: 100%;
+}
+
+ul{
+    padding: 0;
+    margin: 0;
+    text-align: center;
+    list-style-type: none;
+}
+
+li{
+    width: 100%;
+    display: inline-block;
+    background-color: whitesmoke;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    border-radius: 10px;
+    border-style: solid;
+    border-color: black;
+    border-width: 1px;
+}
+
+main{
+    width: 100%;
+    margin-top: 15px;
+}
+
+article{
+    width: 100%;
+    box-sizing: border-box;
+    background-color: whitesmoke;
+    min-height: 330px;
+    border-style: solid;
+    border-color: black;
+    border-width: 1px;
+}
+
+article h2{
+    text-align: center;
+    margin-top: 0;
+}
+
+aside{
+    width: 100%;
+    box-sizing: border-box;
+    background-color: lightgray;
+    margin-top: 15px;
+    padding: 15px;
+}
+
+section{
+    width: 42.5%;
+    box-sizing: border-box;
+    min-height: 80px;
+    float: left;
+    margin-left: 5%;
+    margin-top: 15px;
+    border-style: solid;
+    border-color: red;
+    border-width: 1px;
+}
+
+
+footer{
+    width: 100%;
+    background-color: lightgray;
+    text-align: center;
+    color: white;
+    line-height: 30px;
+}
+
+@media (min-width: 768px){
+    li{
+        display: block;
+        box-sizing: border-box;
+        line-height: 43px;
+    }
+
+    li + li{
+        margin-top: 10px;
+    }
+
+    nav{
+        float: left;
+        width: 20%;
+    }
+
+    main{
+        float: left;
+        width: 77%;
+        margin-left: 3%;
+        margin-top: 0;
+    }
+
+    article{
+        width: 61%;
+        margin-right: 3%;
+        float: left;
+    }
+
+    aside{
+        float: left;
+        width: 36%;
+        margin-top: 0;
+        padding-left: 0;
+        padding-right: 0;
+        min-height: 330px;
+    }
+
+    footer{
+        line-height: 0px;
+        margin-top: 15px;
+        height: 30px;
+        float: left;
+    }
+}
+
+@media (min-width: 992px){
+    body{
+        width: 80%;
+        margin: auto;
+        padding-top: 10px;
+    }
+}

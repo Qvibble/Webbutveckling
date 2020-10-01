@@ -80,7 +80,8 @@ section{
 
 section img{
     width: 40%;
-    margin: 10px;
+    margin-right: 10px;
+    margin-bottom: 10px;
     float: left;
 }
 

@@ -48,6 +48,8 @@ article{
     border-style: solid;
     border-color: black;
     border-width: 1px;
+    overflow: auto;
+    padding-bottom: 30px;
 }
 
 article h2{
@@ -64,7 +66,7 @@ aside{
 }
 
 section{
-    width: 42.5%;
+    width: 90%;
     box-sizing: border-box;
     min-height: 80px;
     float: left;
@@ -73,8 +75,14 @@ section{
     border-style: solid;
     border-color: red;
     border-width: 1px;
+    padding: 10px;
 }
 
+section img{
+    width: 40%;
+    margin: 10px;
+    float: left;
+}
 
 footer{
     width: 100%;
@@ -111,6 +119,16 @@ footer{
         width: 61%;
         margin-right: 3%;
         float: left;
+        padding-bottom: 20px;
+    }
+
+    section{
+        width: 42.5%;
+        margin-left: 5%;
+    }
+
+    section img{
+        width: 60%;
     }
 
     aside{

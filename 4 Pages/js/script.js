@@ -12,8 +12,10 @@ function init(){
         createNavElement(pages[i], i);
     }
 
-    for(let i = 0; i < artElements; i++){
-        createArticleElement(i);
+    if(article !== null){
+        for(let i = 0; i < artElements; i++){
+            createArticleElement(i);
+        }
     }
 }
 

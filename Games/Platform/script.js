@@ -228,6 +228,8 @@ class Vec{
     }
 }
 
+var playerRef;
+
 class Player{
     constructor(pos, speed){
         this.pos = pos;
@@ -239,7 +241,7 @@ class Player{
     }
 
     static create(pos){  //Skapar spelare med en viss position
-        return new Player(pos.plus(new Vec(0, -0.5)), new Vec(0, 0));
+        return new Player(pos.plus(new Vec(0, -0.5)), new Vec(0, 0)); 
     }
 }
 
@@ -248,7 +250,7 @@ Player.prototype.size = new Vec(0.8, 1.5);  //Spelarens storlek
 class Monster {
     constructor(pos, speed) {
         this.pos = pos;
-        this.speed = 0;
+        this.speed = speed;
     }
 
     get type(){
@@ -256,15 +258,7 @@ class Monster {
     }
 
     static create(pos) {
-        return new Monster(pos.plus(new Vec(0, -1)));
-    }
-
-    update(time, state){
-
-    }
-
-    collide(state){
-
+        return new Monster(pos.plus(new Vec(0, -1)), new Vec(2, 0));
     }
 }
 
@@ -381,7 +375,7 @@ DOMDisplay.prototype.syncState = function(state) {  //Ritar actors, tar bort de 
 
     this.actorLayer = drawActors(state.actors);
     this.dom.appendChild(this.actorLayer);
-    this.dom.classNAme = "game " + state.status;
+    this.dom.className = "game " + state.status;
     this.scrollPlayerIntoView(state);
 };
 
@@ -454,7 +448,7 @@ DOMDisplay.prototype.scrollPlayerIntoView = function(state) { //Centrerar spelar
            actor1.pos.y < actor2.pos.y + actor2.size.y;
   }
 
-Lava.prototype.collide = function(state) {
+    Lava.prototype.collide = function(state) {
     return new State(state.level, state.actors, "lost");
 };
 
@@ -464,6 +458,21 @@ Coin.prototype.collide = function(state) {
     if (!filtered.some(a => a.type == "coin")) status = "won";
     return new State(state.level, filtered, status);
 };
+
+Monster.prototype.collide = function(state) {
+    let filtered = state.actors.filter(a => a != this);  //Tar bort monstret om den kolliderar med spelare
+
+    if(!filtered.some(a => a === "player")){
+        if(state.player.pos.y + state.player.size.y -0.1 < this.pos.y){  //Kollar om spelaren är over monstret när de rör varandra
+            status = state.status  //Spelaren överlever
+        }else{
+            filtered = state.actors;  //Gör så att monstret ej tas bort
+            status = "lost";  //Spelaren förlorar
+        }
+    }
+
+    return new State(state.level, filtered, status);
+}
 
 Lava.prototype.update = function(time, state) {
     let newPos = this.pos.plus(this.speed.times(time));
@@ -478,7 +487,7 @@ Lava.prototype.update = function(time, state) {
 
 const wobbleSpeed = 8, wobbleDist = 0.07;
 
-Coin.prototype.update = function(time) {
+Coin.prototype.update = function(time) {  //Rör på coin, upp och ned
   let wobble = this.wobble + time * wobbleSpeed;
   let wobblePos = Math.sin(wobble) * wobbleDist;
   return new Coin(this.basePos.plus(new Vec(0, wobblePos)),
@@ -508,13 +517,19 @@ Player.prototype.update = function(time, state, keys) {
     } else {
         ySpeed = 0;
     }
-    return new Player(pos, new Vec(xSpeed, ySpeed));
+
+    playerRef = new Player(pos, new Vec(xSpeed, ySpeed));
+    return playerRef;
 };
 
 Monster.prototype.update = function(time, state){
-    let pos =  this.pos;
+    let newPos =  this.pos.plus(this.speed.times(time));
+    
+    if(state.level.touches(newPos, this.size, "wall")){ //Kollar om den kör in i en vägg
+        this.speed = this.speed.times(-1);  //Vänder om den kör in i en vägg
+    }
 
-    return new Monster(pos, this.speed*time)
+    return new Monster(newPos, this.speed);
 }
 
 var paused = false;

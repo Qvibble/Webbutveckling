@@ -21,16 +21,44 @@ main{
 
 article{
     box-sizing: border-box;
-    height: 160px;
     width: 100%;
     background-color: white;
     padding: 10px;
+}
+
+section{
+    padding: 10px;
+}
+
+span{
+    padding-left: 35px;
 }
 
 h1{
     margin: 0;
     font-family: 'Cabin', sans-serif;
     font-size: 4em;
+}
+
+h2{
+    font-family: 'Cabin', sans-serif;
+    text-align: center;
+}
+
+h3{
+    font-family: 'Cabin', sans-serif;
+}
+
+p{
+    font-family: 'Cabin', sans-serif;
+}
+
+p + p{
+    margin-top: 50px;
+}
+
+p + h3{
+    margin-top: 50px;
 }
 
 article h1{
@@ -82,5 +110,10 @@ li{
         margin: auto;
         border-left: black 1px solid;
         border-right: black 1px solid;
+    }
+
+    section{
+        margin: auto;
+        width: 60%;
     }
 }

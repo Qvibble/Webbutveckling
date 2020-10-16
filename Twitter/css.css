@@ -1,0 +1,165 @@
+body{
+    display: grid;
+    grid-template-areas:
+        "header"
+        "main"
+        "footer";
+    background-color: teal;
+    margin: 0;
+}
+
+header{
+    grid-area: header;
+    background-color: rgb(36, 235, 235);
+    text-align: center;
+}
+
+main{
+    grid-area: main;
+    background-color: white;
+}
+
+article{
+    box-sizing: border-box;
+    text-align: center;
+    width: 100%;
+    padding: 20px;
+}
+
+section{
+    width: 90%;
+    height: 100px;
+    margin: auto;
+    border-radius: 5px;
+    border: 1px solid black;
+    background-color: white;
+}
+
+section + section{
+    margin-top: 25px;
+}
+
+footer{
+    grid-area: footer;
+    background-color: rgb(66, 66, 66);
+}
+
+h1{
+    font-family: 'Sansita Swashed', cursive;
+    color: white;
+    font-size: 3em;
+    line-height: 30px;
+}
+
+h2{
+    font-family: 'Lato', sans-serif;
+}
+
+input{
+    box-sizing: border-box;
+    width: 100%;
+    height: 50px;
+    font-family: 'Lato', sans-serif;
+    font-size: 1.5em;
+    color:  rgb(36, 36, 36);;
+    padding-left: 10px;
+}
+
+input[type=submit]{
+    display: grid;
+    grid-column: 2 / 3;
+    width: 100%;
+    font-family: 'Lato', sans-serif;
+    font-size: 1.2em;
+    color: white;
+    background-color: rgb(36, 36, 36);
+    border: none;
+    margin: auto;
+    margin-top: 20px;
+}
+
+input[type=submit]:hover{
+    background-color: rgb(94, 94, 94);
+}
+
+legend, label{
+    font-family: 'Lato', sans-serif;
+    color: white;
+}
+
+fieldset>div{
+    display: grid;
+    grid-template-columns: 1fr 0.7fr;
+    column-gap: 40px;
+}
+
+form:first-of-type{
+    border-bottom: 1px solid rgb(36, 36, 36);
+}
+
+
+form:last-of-type fieldset{
+    grid-template-columns: 1fr;
+}
+
+fieldset{
+    padding: 30px;
+    margin-top: 20px;
+    border: none;
+}
+
+/*
+input{
+    box-sizing: border-box;
+    width: 100%;
+    height: 50px;
+}
+
+input[type=submit]{
+    display: grid;
+    grid-column: 2 / 3;
+    width: 100%;
+    font-family: 'Lato', sans-serif;
+    font-size: 1.2em;
+    color: white;
+    background-color: rgb(36, 36, 36);
+    border: none;
+    margin: auto;
+    margin-top: 20px;
+}
+
+input[type=submit] + input[type=submit]{
+    margin-top: 20px;
+}
+
+input[type=submit]:hover{
+    background-color: rgb(94, 94, 94);
+}
+
+legend, label{
+    font-family: 'Lato', sans-serif;
+    color: white;
+}
+
+form{
+    display: grid;
+    grid-template-columns: 1fr 0.7fr;
+    column-gap: 40px;
+}
+
+form:last-of-type{
+    grid-template-columns: 1fr;
+    border-top: 1px solid rgb(36, 36, 36);
+}
+
+fieldset legend{
+    display: block;
+}
+
+fieldset{
+    padding-left: 30px;
+    padding-right: 30px;
+    margin-top: 20px;
+    border: none;
+}
+*/

@@ -11,13 +11,13 @@ function init(){
         let hashedPassword = window.btoa(password); //Hashar lösenord
 
         userData = { //Skapar JSON
-            "name": name,
-            "password": hashedPassword
+            "username": name,
+            "hashed_password": hashedPassword
         }
         
         console.log(userData);
         
-        fetch("url", {
+        fetch("http://localhost:8080/Twitter/api/user", {
             method: "POST",
             headers: {  
                 'Accept': 'application/json',

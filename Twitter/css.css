@@ -9,14 +9,18 @@ body{
 
 header{
     grid-area: header;
-    background-color: rgb(36, 235, 235);
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    background-color: rgb(81, 169, 252);
     text-align: center;
 }
 
+/*Hides wider screen logon on mobile*/
 header form{
     display: none;
 }
 
+/*Hides wider screen search/post*/
 main form{
     display: none;
 }
@@ -27,6 +31,7 @@ main{
     padding: 0;
 }
 
+/*Posts "container"*/
 article{
     box-sizing: border-box;
     text-align: center;
@@ -34,6 +39,7 @@ article{
     padding: 20px;
 }
 
+/*Posts*/
 section{
     width: 90%;
     height: 100px;
@@ -68,6 +74,14 @@ a{
     text-decoration: none;
 }
 
+img{
+    margin-top: 5px;
+    margin-left: 5px;
+    height: 85px;
+    float: left;
+}
+
+/*Textfields, username/password/search*/
 input{
     box-sizing: border-box;
     width: 100%;
@@ -78,6 +92,7 @@ input{
     padding-left: 10px;
 }
 
+/*Submit buttons, login/create/search*/
 input[type=submit]{
     display: grid;
     width: 100%;
@@ -93,6 +108,7 @@ input[type=submit]{
 input[type=submit]:hover{
     background-color: rgb(94, 94, 94);
 }
+/*End of submit buttons*/
 
 legend, label{
     font-family: 'Lato', sans-serif;
@@ -130,7 +146,6 @@ fieldset>div{
 /*Post knapp div*/
 #userPage div>div:last-of-type{
     grid-column: 2 / 3;
-    grid-row: 2 / 3;
 }
 
 form:first-of-type{
@@ -148,59 +163,10 @@ fieldset{
 }
 
 @media (min-width: 768px){
+    /*All websites*/
     main{
         display: grid;
-        grid-template-columns: 0.5fr 1fr 0.5fr;
-    }
-
-    article{
-        grid-column: 2 / 3;
-    }
-
-    header{
-        height: 169px;
-    }
-
-    /*Shows search / create post*/
-    main form{
-        display: grid;
-        grid-column: 3 / 4;
-    }
-
-    #userPage legend, label{
-        color: rgb(36, 36, 36);
-    }
-    
-    #searchPage legend, label{
-        color: rgb(36, 36, 36);
-    }
-
-    #userPage form:first-of-type{
-        border-bottom: none;
-    }
-
-    #searchPage form:first-of-type{
-        border-bottom: none;
-    }
-
-    #userPage fieldset:first-of-type{
-        border-bottom: 1px solid rgb(36, 36, 36);
-    }
-    /*End of search / post*/
-
-    /*Hides mobile login*/
-    footer{
-        display: none;
-    }
-
-    /*Shows larger screen login*/
-    header form{
-        display: block;
-    }
-
-    header{
-        display: grid;
-        grid-template-columns: 1fr 1fr 1fr;
+        grid-template-columns: 0.6fr 1fr 0.6fr;
     }
 
     legend, label{
@@ -211,7 +177,61 @@ fieldset{
         grid-column: 2 / 3;
         font-size: 5em;
     }
+    article{
+        grid-column: 2 / 3;
+    }
 
+    section{
+        width: 100%;
+    }
+
+    header{
+        height: 170px;
+    }
+
+    img{
+        margin-top: 10px;
+        margin-left: 10px;
+        height: 150px;
+    }
+    /*End of all pages*/
+
+    /*Shows search / create post*/
+    main form{
+        display: grid;
+        grid-column: 3 / 4;
+        width: 95%;
+    }
+
+    #userPage legend, label, #searchPage legend, label{
+        color: rgb(36, 36, 36);
+    }
+
+    #userPage form:first-of-type, #searchPage form:first-of-type{
+        border-bottom: none;
+    }
+
+    #userPage fieldset:first-of-type{
+        border-bottom: 1px solid rgb(36, 36, 36);
+    }
+
+    #userPage input[type=submit], #searchPage input[type=submit]{
+        background-color:  rgb(81, 169, 252);
+        color: white;
+    }
+
+    #userPage input[type=submit]:hover, #searchPage input[type=submit]:hover{
+        background-color: rgb(67, 136, 201);
+        color: white;
+    }
+    /*End of search / post*/
+
+    /*Hides mobile login*/
+    footer{
+        display: none;
+    }
+
+    /*Shows larger screen login*/
     header input{
         height: 30px;
         font-size: 1em;
@@ -219,13 +239,17 @@ fieldset{
         border: none;
     }
 
+    header form{
+        display: block;
+    }
+
     header input[type=submit]{
         background-color: white;
-        color: rgb(36, 235, 235);
+        color:   rgb(81, 169, 252);
     }
 
     header input[type=submit]:hover{
-        background-color: rgb(23, 180, 180);
+        background-color: rgb(67, 136, 201);
         color: white;
     }
 

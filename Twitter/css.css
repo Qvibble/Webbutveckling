@@ -4,7 +4,6 @@ body{
         "header"
         "main"
         "footer";
-    background-color: teal;
     margin: 0;
 }
 
@@ -14,9 +13,18 @@ header{
     text-align: center;
 }
 
+header form{
+    display: none;
+}
+
+main form{
+    display: none;
+}
+
 main{
     grid-area: main;
     background-color: white;
+    padding: 0;
 }
 
 article{
@@ -30,8 +38,8 @@ section{
     width: 90%;
     height: 100px;
     margin: auto;
-    border-radius: 5px;
-    border: 1px solid black;
+    border-radius: 3px;
+    border: 1px solid rgb(133, 133, 133);
     background-color: white;
 }
 
@@ -55,19 +63,23 @@ h2{
     font-family: 'Lato', sans-serif;
 }
 
+a{
+    color: white;
+    text-decoration: none;
+}
+
 input{
     box-sizing: border-box;
     width: 100%;
     height: 50px;
     font-family: 'Lato', sans-serif;
     font-size: 1.5em;
-    color:  rgb(36, 36, 36);;
+    color:  rgb(36, 36, 36);
     padding-left: 10px;
 }
 
 input[type=submit]{
     display: grid;
-    grid-column: 2 / 3;
     width: 100%;
     font-family: 'Lato', sans-serif;
     font-size: 1.2em;
@@ -93,10 +105,37 @@ fieldset>div{
     column-gap: 40px;
 }
 
+#userPage fieldset>div{
+    grid-template-rows: auto auto;
+}
+
+/*Post content div*/
+#userPage div>div:first-of-type{
+    grid-column: 1 / 3;
+}
+
+/*Post content text*/
+#userPage textarea{
+    width: 100%;
+    height: 300px;
+    box-sizing: border-box;
+    resize: none;
+    padding: 5px;
+    font-family: 'Lato', sans-serif;
+    color:  rgb(36, 36, 36);
+    font-size: 1.5em;
+    grid-column: 1 / 3;
+}
+
+/*Post knapp div*/
+#userPage div>div:last-of-type{
+    grid-column: 2 / 3;
+    grid-row: 2 / 3;
+}
+
 form:first-of-type{
     border-bottom: 1px solid rgb(36, 36, 36);
 }
-
 
 form:last-of-type fieldset{
     grid-template-columns: 1fr;
@@ -108,58 +147,98 @@ fieldset{
     border: none;
 }
 
-/*
-input{
-    box-sizing: border-box;
-    width: 100%;
-    height: 50px;
-}
+@media (min-width: 768px){
+    main{
+        display: grid;
+        grid-template-columns: 0.5fr 1fr 0.5fr;
+    }
 
-input[type=submit]{
-    display: grid;
-    grid-column: 2 / 3;
-    width: 100%;
-    font-family: 'Lato', sans-serif;
-    font-size: 1.2em;
-    color: white;
-    background-color: rgb(36, 36, 36);
-    border: none;
-    margin: auto;
-    margin-top: 20px;
-}
+    article{
+        grid-column: 2 / 3;
+    }
 
-input[type=submit] + input[type=submit]{
-    margin-top: 20px;
-}
+    header{
+        height: 169px;
+    }
 
-input[type=submit]:hover{
-    background-color: rgb(94, 94, 94);
-}
+    /*Shows search / create post*/
+    main form{
+        display: grid;
+        grid-column: 3 / 4;
+    }
 
-legend, label{
-    font-family: 'Lato', sans-serif;
-    color: white;
-}
+    #userPage legend, label{
+        color: rgb(36, 36, 36);
+    }
+    
+    #searchPage legend, label{
+        color: rgb(36, 36, 36);
+    }
 
-form{
-    display: grid;
-    grid-template-columns: 1fr 0.7fr;
-    column-gap: 40px;
-}
+    #userPage form:first-of-type{
+        border-bottom: none;
+    }
 
-form:last-of-type{
-    grid-template-columns: 1fr;
-    border-top: 1px solid rgb(36, 36, 36);
-}
+    #searchPage form:first-of-type{
+        border-bottom: none;
+    }
 
-fieldset legend{
-    display: block;
-}
+    #userPage fieldset:first-of-type{
+        border-bottom: 1px solid rgb(36, 36, 36);
+    }
+    /*End of search / post*/
 
-fieldset{
-    padding-left: 30px;
-    padding-right: 30px;
-    margin-top: 20px;
-    border: none;
-}
-*/
+    /*Hides mobile login*/
+    footer{
+        display: none;
+    }
+
+    /*Shows larger screen login*/
+    header form{
+        display: block;
+    }
+
+    header{
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+    }
+
+    legend, label{
+        color: white;
+    }
+
+    h1{
+        grid-column: 2 / 3;
+        font-size: 5em;
+    }
+
+    header input{
+        height: 30px;
+        font-size: 1em;
+        text-align: center;
+        border: none;
+    }
+
+    header input[type=submit]{
+        background-color: white;
+        color: rgb(36, 235, 235);
+    }
+
+    header input[type=submit]:hover{
+        background-color: rgb(23, 180, 180);
+        color: white;
+    }
+
+    header fieldset{
+        padding-top: 0;
+    }
+
+    header fieldset>div{
+        grid-template-columns: 1fr 0.3fr;
+    }
+
+    header form:first-of-type{
+        border-bottom: none;
+    }
+    /*End of larger screen login*/
+ }

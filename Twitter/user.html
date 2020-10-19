@@ -7,50 +7,50 @@
     <link rel="stylesheet" href="./css.css">
     <link href="https://fonts.googleapis.com/css2?family=Sansita+Swashed:wght@500&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Lato&family=Sansita+Swashed:wght@500&display=swap" rel="stylesheet">
-    <title>Twitter</title>
+    <title>User</title>
 </head>
-<body>
+<body id="userPage">
     <header>
         <h1>
             <a href="index.html">Twitter</a>
         </h1>
-        <form>
-            <fieldset>
-                <legend>Login/Create Account</legend>
-                <div>
-                    <div>
-                        <label>Username</label>
-                        <input type="text" name="username" maxlength="20">
-                        <label>Password</label>
-                        <input type="password" name="password" maxlength="128">
-                    </div>
-                    <div>
-                        <input type="submit" name="login" value="Login">
-                        <input type="submit" name="create" value="Create">
-                    </div>
-                </div>
-            </fieldset>
-        </form>
     </header>
     <main>
         <article id="art">
-            <h2>Random Posts</h2>
+            <h2>User Posts</h2>
         </article>
+        <form>
+            <fieldset> 
+                <legend>Search for user</legend>
+                    <input type="text" name="searchBar">
+                    <input type="submit" name="search" value="Search">
+            </fieldset>
+       
+            <fieldset>
+                <legend>Create Post</legend>
+                <div>
+                    <div>
+                        <label>Content</label><br>
+                        <textarea name="content" maxlength="128" placeholder="Write here..."></textarea>
+                    </div>
+                    <div>
+                        <input type="submit" name="post" value="Post">
+                    </div>
+                </div>
+            </fieldset>
+        </form> 
     </main>
     <footer>
         <form>
             <fieldset>
-                <legend>Login/Create Account</legend>
+                <legend>Create Post</legend>
                 <div>
                     <div>
-                        <label>Username</label>
-                        <input type="text" name="username" maxlength="20">
-                        <label>Password</label>
-                        <input type="password" name="password" maxlength="128">
+                        <label>Content</label><br>
+                        <textarea name="content" maxlength="128" placeholder="Write here..."></textarea>
                     </div>
                     <div>
-                        <input type="submit" name="login" value="Login">
-                        <input type="submit" name="create" value="Create">
+                        <input type="submit" name="post" value="Post">
                     </div>
                 </div>
             </fieldset>

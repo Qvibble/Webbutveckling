@@ -12,21 +12,21 @@ function init(){
 
         userData = { //Skapar JSON
             "username": name,
-            "hashed_password": hashedPassword
+            "password": hashedPassword
         }
         
-        console.log(userData);
+        console.log(JSON.stringify(userData));
         
         fetch("http://localhost:8080/Twitter/api/user", {
             method: "POST",
+            mode: 'cors',
             headers: {  
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
+                'Content-Type': 'text/plain'
             },
             body: JSON.stringify(userData)        
         })
         .then((response) => {
-            
+            console.log(response);
         })
 
         event.preventDefault();

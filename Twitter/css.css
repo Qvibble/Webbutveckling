@@ -11,6 +11,7 @@ header{
     grid-area: header;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
+    grid-template-areas: "logo title login";
     background-color: rgb(81, 169, 252);
     text-align: center;
 }
@@ -59,6 +60,7 @@ footer{
 }
 
 h1{
+    grid-area: title;
     font-family: 'Sansita Swashed', cursive;
     color: white;
     font-size: 3em;
@@ -111,6 +113,7 @@ input[type=submit]:hover{
 /*End of submit buttons*/
 
 legend, label{
+    margin: auto;
     font-family: 'Lato', sans-serif;
     color: white;
 }
@@ -163,22 +166,27 @@ fieldset{
 }
 
 @media (min-width: 768px){
-    /*All websites*/
+    /*All pages*/
     main{
         display: grid;
         grid-template-columns: 0.6fr 1fr 0.6fr;
+        grid-template-areas: "empty article form";
+    }
+    
+    legend, label{
+        color: rgb(36, 36, 36);
     }
 
-    legend, label{
+    header legend, label{
         color: white;
     }
 
     h1{
-        grid-column: 2 / 3;
         font-size: 5em;
     }
+
     article{
-        grid-column: 2 / 3;
+        grid-area: article;
     }
 
     section{
@@ -194,39 +202,36 @@ fieldset{
         margin-left: 10px;
         height: 150px;
     }
+    
     /*End of all pages*/
-
+    
     /*Shows search / create post*/
-    main form{
-        display: grid;
-        grid-column: 3 / 4;
-        width: 95%;
-    }
-
-    #userPage legend, label, #searchPage legend, label{
-        color: rgb(36, 36, 36);
-    }
-
-    #userPage form:first-of-type, #searchPage form:first-of-type{
+    form:first-of-type{
         border-bottom: none;
     }
 
+    main form{
+        display: grid;
+        grid-area: form;
+        width: 95%;
+    }
+    
     #userPage fieldset:first-of-type{
         border-bottom: 1px solid rgb(36, 36, 36);
     }
 
-    #userPage input[type=submit], #searchPage input[type=submit]{
+    input[type=submit]{
         background-color:  rgb(81, 169, 252);
         color: white;
     }
 
-    #userPage input[type=submit]:hover, #searchPage input[type=submit]:hover{
+    input[type=submit]:hover{
         background-color: rgb(67, 136, 201);
         color: white;
     }
     /*End of search / post*/
 
-    /*Hides mobile login*/
+    /*Hides small screen login*/
     footer{
         display: none;
     }

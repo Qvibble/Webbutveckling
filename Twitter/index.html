@@ -17,9 +17,9 @@
         <h1>
             <a href="index.html">Twitter</a>
         </h1>
-        <form>
+        <form id="lLogInForm">
             <fieldset>
-                <legend>Login/Create Account</legend>
+                <legend>Log In/Create Account</legend>
                 <div>
                     <div>
                         <label>Username</label>
@@ -28,8 +28,8 @@
                         <input type="password" name="password" maxlength="128">
                     </div>
                     <div>
-                        <input type="submit" name="login" value="Login">
-                        <input type="submit" name="create" value="Create">
+                        <input type="button" name="largeLogIn" value="Log In" id="largeLogIn">
+                        <input type="button" name="largeCreate" value="Create" id="largeCreate">
                     </div>
                 </div>
             </fieldset>
@@ -43,14 +43,14 @@
             <fieldset> 
                 <legend>Search for user</legend>
                     <input type="text" name="searchBar">
-                    <input type="submit" name="search" value="Search">
+                    <input type="button" name="search" value="Search">
             </fieldset>
         </form>
     </main>
     <footer>
-        <form>
+        <form id="mLogInForm">
             <fieldset>
-                <legend>Login/Create Account</legend>
+                <legend>Log In/Create Account</legend>
                 <div>
                     <div>
                         <label>Username</label>
@@ -59,8 +59,8 @@
                         <input type="password" name="password" maxlength="128">
                     </div>
                     <div>
-                        <input type="submit" name="login" value="Login">
-                        <input type="submit" name="create" value="Create">
+                        <input type="button" name="mobileLogIn" value="Log In" id="mobileLogIn">
+                        <input type="button" name="mobileCreate" value="Create" id="mobileCreate">
                     </div>
                 </div>
             </fieldset>
@@ -69,7 +69,7 @@
             <fieldset> 
                 <legend>Search for user</legend>
                     <input type="text" name="searchBar">
-                    <input type="submit" name="search" value="Search">
+                    <input type="button" name="search" value="Search">
             </fieldset>
         </form>
     </footer>

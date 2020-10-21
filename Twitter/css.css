@@ -42,12 +42,33 @@ article{
 
 /*Posts*/
 section{
+    box-sizing: border-box;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    grid-template-rows: auto 20px;
+    grid-template-areas: 
+        "post post"
+        "empty user";
     width: 90%;
-    height: 100px;
+    min-height: 100px;
     margin: auto;
+    padding: 8px;
     border-radius: 3px;
     border: 1px solid rgb(133, 133, 133);
     background-color: white;
+}
+
+section p{
+    grid-area: user;
+    margin: 0;
+    font-weight: bold;
+    font-family: 'Lato', sans-serif;
+}
+
+section p:first-of-type{
+    grid-area: post;
+    font-weight: normal;
+    margin-top: 25px;
 }
 
 section + section{
@@ -95,7 +116,7 @@ input{
 }
 
 /*Submit buttons, login/create/search*/
-input[type=submit]{
+input[type=button]{
     display: grid;
     width: 100%;
     font-family: 'Lato', sans-serif;
@@ -105,12 +126,22 @@ input[type=submit]{
     border: none;
     margin: auto;
     margin-top: 20px;
+    padding-left: 5px;
 }
 
-input[type=submit]:hover{
+input[type=button]:hover{
     background-color: rgb(94, 94, 94);
 }
 /*End of submit buttons*/
+
+/*Log out*/
+#userPage header input{
+    display: none;
+}
+
+#userPage footer>input{
+    height: 80px;
+}
 
 legend, label{
     margin: auto;
@@ -210,22 +241,26 @@ fieldset{
         border-bottom: none;
     }
 
+    #userPage main>div{
+        grid-area: form;   
+    }
+
     main form{
         display: grid;
         grid-area: form;
         width: 95%;
     }
     
-    #userPage fieldset:first-of-type{
+    #userPage form:first-of-type{
         border-bottom: 1px solid rgb(36, 36, 36);
     }
 
-    input[type=submit]{
+    input[type=button]{
         background-color:  rgb(81, 169, 252);
         color: white;
     }
 
-    input[type=submit]:hover{
+    input[type=button]:hover{
         background-color: rgb(67, 136, 201);
         color: white;
     }
@@ -234,6 +269,12 @@ fieldset{
     /*Hides small screen login*/
     footer{
         display: none;
+    }
+
+    /*Log out button*/
+    #userPage header input{
+        display: grid;
+        width: 50%;
     }
 
     /*Shows larger screen login*/
@@ -245,15 +286,15 @@ fieldset{
     }
 
     header form{
-        display: block;
+        display: grid;
     }
 
-    header input[type=submit]{
+    header input[type=button]{
         background-color: white;
         color:   rgb(81, 169, 252);
     }
 
-    header input[type=submit]:hover{
+    header input[type=button]:hover{
         background-color: rgb(67, 136, 201);
         color: white;
     }

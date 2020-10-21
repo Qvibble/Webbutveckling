@@ -17,31 +17,35 @@
         <h1>
             <a href="index.html">Twitter</a>
         </h1>
+        <input type="button" name="lLogOut" value="Log Out" id="lLogOut">
     </header>
     <main>
         <article id="art">
             <h2>User Posts</h2>
         </article>
-        <form>
-            <fieldset> 
-                <legend>Search for user</legend>
-                    <input type="text" name="searchBar">
-                    <input type="submit" name="search" value="Search">
-            </fieldset>
-       
-            <fieldset>
-                <legend>Create Post</legend>
-                <div>
+        <div>
+            <form>
+                <fieldset> 
+                    <legend>Search for user</legend>
+                        <input type="text" name="searchBar">
+                        <input type="button" name="search" value="Search">
+                </fieldset>
+            </form>
+            <form>
+                <fieldset>
+                    <legend>Create Post</legend>
                     <div>
-                        <label>Content</label><br>
-                        <textarea name="content" maxlength="128" placeholder="Write here..."></textarea>
+                        <div>
+                            <label>Content</label><br>
+                            <textarea name="content" maxlength="128" placeholder="Write here..."></textarea>
+                        </div>
+                        <div>
+                            <input type="button" name="post" value="Post">
+                        </div>
                     </div>
-                    <div>
-                        <input type="submit" name="post" value="Post">
-                    </div>
-                </div>
-            </fieldset>
-        </form> 
+                </fieldset>
+            </form>
+        </div> 
     </main>
     <footer>
         <form>
@@ -53,7 +57,7 @@
                         <textarea name="content" maxlength="128" placeholder="Write here..."></textarea>
                     </div>
                     <div>
-                        <input type="submit" name="post" value="Post">
+                        <input type="button" name="post" value="Post">
                     </div>
                 </div>
             </fieldset>
@@ -62,9 +66,10 @@
             <fieldset> 
                 <legend>Search for user</legend>
                     <input type="text" name="searchBar">
-                    <input type="submit" name="search" value="Search">
+                    <input type="button" name="search" value="Search">
             </fieldset>
         </form>
+        <input type="button" name="mLogOut" value="Log Out" id="mLogOut">
     </footer>
 </body>
 </html>

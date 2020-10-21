@@ -14,10 +14,19 @@ header{
     grid-template-areas: "logo title login";
     background-color: rgb(81, 169, 252);
     text-align: center;
+    color: white;
+}
+
+header>div:last-of-type{
+    display: none;
 }
 
 /*Hides wider screen logon on mobile*/
 header form{
+    display: none;
+}
+
+#userPage header form{
     display: none;
 }
 
@@ -129,6 +138,10 @@ input[type=button]{
     padding-left: 5px;
 }
 
+header>input[type=button]{
+    display: none;
+}
+
 input[type=button]:hover{
     background-color: rgb(94, 94, 94);
 }
@@ -139,7 +152,7 @@ input[type=button]:hover{
     display: none;
 }
 
-#userPage footer>input{
+footer>input{
     height: 80px;
 }
 
@@ -285,6 +298,13 @@ fieldset{
         border: none;
     }
 
+    header>input[type=button]{
+        display: grid;
+        height: 50px;
+        width: 80%;
+        margin-top: 55px;
+    }
+
     header form{
         display: grid;
     }
@@ -309,6 +329,23 @@ fieldset{
 
     header form:first-of-type{
         border-bottom: none;
+    }
+
+    #userPage header div{
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-template-areas: 
+            "welcome logOut";
+    }
+    
+    #userPage header input{
+        grid-area: logOut;
+        margin-top: 70px;
+    }
+    
+    #userPage header h2{
+        margin-top: 55px;
+        grid-area: welcome;
     }
     /*End of larger screen login*/
  }

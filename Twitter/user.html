@@ -26,23 +26,25 @@
             <h2>Your Posts</h2>
         </article>
         <div>
+            <!--Large screen log in form-->
             <form>
                 <fieldset> 
                     <legend>Search for user</legend>
-                        <input type="text" name="searchBar">
-                        <input type="button" name="search" value="Search">
-                </fieldset>
+                        <input type="text" name="searchBar" id="lSearchBar">
+                        <input type="button" name="largeSearch" value="Search" id="lSearchButton">
+                    </fieldset>
             </form>
+            <!--Large screen search form-->
             <form>
                 <fieldset>
                     <legend>Create Post</legend>
                     <div>
                         <div>
                             <label>Content</label><br>
-                            <textarea name="content" maxlength="128" placeholder="Write here..."></textarea>
+                            <textarea name="content" maxlength="128" placeholder="Write here..." id="lTextarea"></textarea>
                         </div>
                         <div>
-                            <input type="button" name="post" value="Post">
+                            <input type="button" name="largePost" value="Post" id="lPublishButton">
                         </div>
                     </div>
                 </fieldset>
@@ -50,25 +52,27 @@
         </div> 
     </main>
     <footer>
+        <!--Mobile log in form-->
         <form>
             <fieldset>
                 <legend>Create Post</legend>
                 <div>
                     <div>
                         <label>Content</label><br>
-                        <textarea name="content" maxlength="128" placeholder="Write here..."></textarea>
+                        <textarea name="content" maxlength="128" placeholder="Write here..." id="mTextarea"></textarea>
                     </div>
                     <div>
-                        <input type="button" name="post" value="Post">
+                        <input type="button" name="mobilePost" value="Post" id="mPublishButton">
                     </div>
                 </div>
             </fieldset>
         </form>
+        <!--Mobile search form-->
         <form>
             <fieldset> 
                 <legend>Search for user</legend>
-                    <input type="text" name="searchBar">
-                    <input type="button" name="search" value="Search">
+                    <input type="text" name="searchBar" id="mSearchBar">
+                    <input type="button" name="mobileSearch" value="Search" id="mSearchButton">
             </fieldset>
         </form>
         <input type="button" name="mLogOut" value="Log Out" id="mLogOut">

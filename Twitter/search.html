@@ -17,6 +17,7 @@
         <h1>
             <a href="index.html">Twitter</a>
         </h1>
+        <!--Large screen log in form-->
         <form id="lLogInForm">
             <fieldset>
                 <legend>Log In/Create Account</legend>
@@ -39,15 +40,17 @@
         <article id="art">
             <h2>Searched Users Posts</h2>
         </article>
+        <!--Large screen search form-->
         <form>
             <fieldset> 
                 <legend>Search for user</legend>
-                    <input type="text" name="searchBar">
-                    <input type="button" name="search" value="Search">
+                    <input type="text" name="searchBar" id="lSearchBar">
+                    <input type="button" name="largeSearch" value="Search" id="lSearchButton">
             </fieldset>
         </form>
     </main>
     <footer>
+        <!--Mobile log in form-->
         <form id="mLogInForm">
             <fieldset>
                 <legend>Log In/Create Account</legend>
@@ -65,11 +68,12 @@
                 </div>
             </fieldset>
         </form>
+        <!--Mobile search form-->
         <form>
             <fieldset> 
                 <legend>Search for user</legend>
-                    <input type="text" name="searchBar">
-                    <input type="button" name="search" value="Search">
+                    <input type="text" name="searchBar" id="mSearchBar">
+                    <input type="button" name="mobileSearch" value="Search" id="mSearchButton">
             </fieldset>
         </form>
     </footer>

@@ -272,7 +272,7 @@ function createUser(){
 /**
  * Hämtar 5 slumpade inlägg från databasen och skapar sections där inläggen ligger
  */
-function fetchRandomPosts(){  //Hämtar 5 slumpade inlägg
+function fetchRandomPosts(){
     fetch("http://localhost:8080/Twitter/api/posts", {
             method: "GET",
             mode: 'cors',

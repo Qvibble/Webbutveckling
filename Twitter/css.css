@@ -17,16 +17,8 @@ header{
     color: white;
 }
 
-header>div:last-of-type{
-    display: none;
-}
-
 /*Hides wider screen logon on mobile*/
 header form{
-    display: none;
-}
-
-#userPage header form{
     display: none;
 }
 
@@ -35,6 +27,7 @@ main form{
     display: none;
 }
 
+/*Holds article with posts*/
 main{
     grid-area: main;
     background-color: white;
@@ -49,7 +42,8 @@ article{
     padding: 20px;
 }
 
-/*Posts*/
+/*Posts ----------*/
+/*Post "container"*/
 section{
     box-sizing: border-box;
     display: grid;
@@ -67,6 +61,7 @@ section{
     background-color: white;
 }
 
+/*Name of the user P*/
 section p{
     grid-area: user;
     margin: 0;
@@ -74,21 +69,25 @@ section p{
     font-family: 'Lato', sans-serif;
 }
 
+/*Post content P*/
 section p:first-of-type{
     grid-area: post;
     font-weight: normal;
     margin-top: 25px;
 }
 
+/*Spacing between posts*/
 section + section{
     margin-top: 25px;
 }
+/*End of posts ----------*/
 
 footer{
     grid-area: footer;
     background-color: rgb(66, 66, 66);
 }
 
+/*Header h1, "Twitter"*/
 h1{
     grid-area: title;
     font-family: 'Sansita Swashed', cursive;
@@ -97,15 +96,22 @@ h1{
     line-height: 30px;
 }
 
+/*Article h2*/
 h2{
     font-family: 'Lato', sans-serif;
 }
 
+header h2{
+    display: none;
+}
+
+/*h1 "Twitter" is a link with no text-decoration*/
 a{
     color: white;
     text-decoration: none;
 }
 
+/*Twitter logo (bird - top left)*/
 img{
     margin-top: 5px;
     margin-left: 5px;
@@ -124,7 +130,7 @@ input{
     padding-left: 10px;
 }
 
-/*Submit buttons, login/create/search*/
+/*Buttons, log in/create/search/log out ----------*/
 input[type=button]{
     display: grid;
     width: 100%;
@@ -138,6 +144,7 @@ input[type=button]{
     padding-left: 5px;
 }
 
+/*Hides log out button*/
 header>input[type=button]{
     display: none;
 }
@@ -145,29 +152,34 @@ header>input[type=button]{
 input[type=button]:hover{
     background-color: rgb(94, 94, 94);
 }
-/*End of submit buttons*/
+/*End of buttons ----------*/
 
-/*Log out*/
+/*Log out button ----------*/
 #userPage header input{
     display: none;
 }
 
+/*Log out in footer*/
 footer>input{
     height: 80px;
 }
+/*End of log out button ----------*/
 
+/*Form legend/label*/
 legend, label{
     margin: auto;
     font-family: 'Lato', sans-serif;
     color: white;
 }
 
+/*Grid in form>fieldset>div*/
 fieldset>div{
     display: grid;
     grid-template-columns: 1fr 0.7fr;
     column-gap: 40px;
 }
 
+/*Post container ----------*/
 #userPage fieldset>div{
     grid-template-rows: auto auto;
 }
@@ -190,19 +202,23 @@ fieldset>div{
     grid-column: 1 / 3;
 }
 
-/*Post knapp div*/
+/*Post button div*/
 #userPage div>div:last-of-type{
     grid-column: 2 / 3;
 }
+/*End of post container ----------*/
 
+/*First form bottom line to separate two forms visually*/
 form:first-of-type{
     border-bottom: 1px solid rgb(36, 36, 36);
 }
 
+/*Search form layout*/
 form:last-of-type fieldset{
     grid-template-columns: 1fr;
 }
 
+/*Form fieldset*/
 fieldset{
     padding: 30px;
     margin-top: 20px;
@@ -210,87 +226,107 @@ fieldset{
 }
 
 @media (min-width: 768px){
-    /*All pages*/
+    /*All pages ----------*/
+    /*Split main grid*/
     main{
         display: grid;
         grid-template-columns: 0.6fr 1fr 0.6fr;
         grid-template-areas: "empty article form";
     }
     
+    /*From white on black, to black on white*/
     legend, label{
         color: rgb(36, 36, 36);
     }
 
+    /*Log in form in header*/
     header legend, label{
         color: white;
     }
 
+    /*"Twitter" in header larger*/
     h1{
         font-size: 5em;
     }
 
+    /*Places article*/
     article{
         grid-area: article;
     }
 
+    /*Sectinos fill 100% article width*/
     section{
         width: 100%;
     }
 
+    /*Larger header height*/
     header{
         height: 170px;
     }
 
+    /*Larger logo (bird)*/
     img{
         margin-top: 10px;
         margin-left: 10px;
         height: 150px;
     }
     
-    /*End of all pages*/
+    /*End of all pages ----------*/
     
-    /*Shows search / create post*/
+    /*Shows search / create post in main----------*/
+    /*index search form*/
     form:first-of-type{
         border-bottom: none;
     }
 
+    /*div to hold two forms in main*/
     #userPage main>div{
         grid-area: form;   
     }
 
+    /*index search form*/
     main form{
         display: grid;
         grid-area: form;
         width: 95%;
     }
     
+    /*Visual line between two forms*/
     #userPage form:first-of-type{
         border-bottom: 1px solid rgb(36, 36, 36);
     }
 
+    /*main button color*/
     input[type=button]{
         background-color:  rgb(81, 169, 252);
         color: white;
     }
 
+    /*main button hover color*/
     input[type=button]:hover{
         background-color: rgb(67, 136, 201);
         color: white;
     }
-    /*End of search / post*/
+    /*End of show search / post in main ----------*/
 
-    /*Hides small screen login*/
+    /*Hides small screen login (entire footer)*/
     footer{
         display: none;
     }
 
-    /*Log out button*/
+    /*Log out button in header*/
     #userPage header input{
         display: grid;
         width: 50%;
     }
 
-    /*Shows larger screen login*/
+    /*Shows larger screen login in header ----------*/
+    /*Shows log in form*/
+    header form{
+        display: grid;
+    }
+
+    /*Log in text/password*/
     header input{
         height: 30px;
         font-size: 1em;
@@ -298,54 +334,64 @@ fieldset{
         border: none;
     }
 
+    /*log in / create buttons*/
     header>input[type=button]{
-        display: grid;
         height: 50px;
         width: 80%;
         margin-top: 55px;
     }
 
-    header form{
-        display: grid;
-    }
-
+    /*log in / create buttons color*/
     header input[type=button]{
         background-color: white;
         color:   rgb(81, 169, 252);
     }
 
+    /*log in / create buttons hover color*/
     header input[type=button]:hover{
         background-color: rgb(67, 136, 201);
         color: white;
     }
 
+    /*log in / create fieldset*/
     header fieldset{
         padding-top: 0;
     }
 
+    /*log in / create fieldset grid*/
     header fieldset>div{
         grid-template-columns: 1fr 0.3fr;
     }
+    /*End of show larger screen login ----------*/
 
-    header form:first-of-type{
-        border-bottom: none;
-    }
-
+    
+    /*Log out grid*/
     #userPage header div{
         display: grid;
         grid-template-columns: 1fr 1fr;
         grid-template-areas: 
-            "welcome logOut";
+        "welcome logOut";
     }
     
+    /*Log out button*/
     #userPage header input{
         grid-area: logOut;
+        width: 70%;
         margin-top: 70px;
     }
     
+    /*Shows welcome text next to log out button*/
     #userPage header h2{
+        display: grid;
         margin-top: 55px;
         grid-area: welcome;
     }
-    /*End of larger screen login*/
- }
+    /*End of log out / welcome message*/
+
+    /*Log out / welcome message*/
+
+    /*Shows back button when logged in*/
+    header input[type=button]{
+        display: grid;
+    }
+}

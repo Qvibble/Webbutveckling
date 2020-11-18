@@ -144,7 +144,7 @@ function movePig(){
 	let xLimit = boardElem.offsetWidth - pigElem.offsetWidth;  //Max x-koordinat för grisen
 	let yLimit = boardElem.offsetHeight - pigElem.offsetHeight;  //Max y-koordinat för grisen
 	let xPos = Math.floor(Math.random()*xLimit);  //Slumpar x position
-	let yPos = Math.floor(Math.random()*yLimit);  //Slumpar t position
+	let yPos = Math.floor(Math.random()*yLimit);  //Slumpar y position
 
 	if(pigCounter < 10){  //Om 10 grisar inte visats
 		pigElem.style.left = xPos + "px";  //Sätter y på grisen

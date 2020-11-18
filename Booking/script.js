@@ -89,7 +89,7 @@ function caps(){
 
 /*I fälten för postnummer och telefonnummer ska innehållet kontrolleras med hjälp av reguljära uttryck.*/
 function checkZip(){
-    let reg = /\d{5}/;  //Reguljärt uttryck
+    let reg = /^\d{5}$/;  //Reguljärt uttryck
 
     if(!reg.test(zipField.value)){
         this.style.backgroundColor = "red";
@@ -99,7 +99,7 @@ function checkZip(){
 }
 
 function checkPhone(){
-    let reg = /\d{10}/;  //Reguljärt uttryck
+    let reg = /^\d{10}$/;  //Reguljärt uttryck
 
     if(!reg.test(phoneField.value)){
         this.style.backgroundColor = "red";
@@ -110,7 +110,7 @@ function checkPhone(){
 
 /*Kampanjkoden ska också kontrolleras med ett reguljärt uttryck. För varje nytt tecken som skrivs, ska det ges en feedback genom bakgrundsfärgen.*/
 function checkCode(){
-    let reg = /[A-Z]{4}\d{2}/;
+    let reg = /^[A-Z]{4}\d{2}$/;
 
     if(!reg.test(codeField.value)){
         this.style.backgroundColor = "red";

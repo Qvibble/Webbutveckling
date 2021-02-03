@@ -2,7 +2,7 @@ import React from "react";
 
 function Start(props){
     return(
-        <main>
+        <main id="start">
             <article>
                 <section>
                     <img src={props.img} alt={props.img}/>

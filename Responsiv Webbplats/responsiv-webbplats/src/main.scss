@@ -61,6 +61,7 @@ $secondary: white;
         }
     }
 
+    //First page + css styling for second + third
     main{
         grid-area: main;
         background-color: $secondary;
@@ -87,6 +88,55 @@ $secondary: white;
         }
     }
 
+    //Main - Second page only css
+    #second{
+        article{
+            section{
+                display: grid;
+                grid-template-areas: 
+                    "img title"
+                    "text text";
+                grid-template-columns: 1fr 1fr;
+                box-sizing: border-box;
+                width: 100%;
+                border-bottom: 1px solid black;
+                padding: 20px;
+                img{
+                    grid-area: img;
+                    width: 100%;
+                }
+
+                p{
+                    grid-area: text;
+                    border: none;
+                }
+
+                h2{
+                    grid-area: title;
+                    text-align: center;                    
+                }
+            }
+        }
+    }
+
+    //Main - third page only css
+    #third{
+        article{
+            p{
+                border-top: none;
+            }    
+        }
+
+        aside{
+            padding: 20px;
+            border-bottom: 1px solid black;
+
+            p{
+                margin: 0;
+            }
+        }
+    }
+    
     footer{
         grid-area: footer;
         background-color: $secondary;

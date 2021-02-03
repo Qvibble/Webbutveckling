@@ -2,13 +2,13 @@ import React from "react";
 
 function Third(props){
     return(
-        <main>
-            <article>
-                <section>
-                    <img src={props.img} alt={props.img}/>
-                </section>
+        <main id="third">
+            <article>                
                 <p>{props.text}</p>
             </article>
+            <aside>
+                <p>{props.aside}</p>
+            </aside>
         </main>
     );
 }

@@ -1,0 +1,33 @@
+main{
+    display: grid;
+    grid-template-areas: 
+        "section section"
+        "xPos xSpeed"
+        "yPos ySpeed";
+    grid-template-columns: 1fr 1fr;
+    margin: auto;
+    width: 800px;
+    margin-top: 20vh;
+}
+
+canvas{
+    grid-area: section;
+    box-sizing: border-box;
+    border: 1px solid black;    
+}
+
+#xPos{
+    grid-area: xPos;
+}
+
+#yPos{
+    grid-area: yPos;
+}
+
+#xSpeed{
+    grid-area: xSpeed;
+}
+
+#ySpeed{
+    grid-area: ySpeed;
+}

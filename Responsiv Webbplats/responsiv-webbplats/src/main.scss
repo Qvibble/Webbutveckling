@@ -8,7 +8,8 @@ $secondary: white;
         "nav"
         "main"
         "footer";
-    
+
+    //Header is the same on all mobile pages
     header{
         grid-area: header;
         background-color: $primary;
@@ -19,6 +20,7 @@ $secondary: white;
         }
     }
 
+    //Nav is the same on all mobile pages
     nav{
         grid-area: nav;
         background-color: $secondary;
@@ -61,7 +63,7 @@ $secondary: white;
         }
     }
 
-    //First page + css styling for second + third
+    //Main - First page + css styling for second & third
     main{
         grid-area: main;
         background-color: $secondary;
@@ -73,6 +75,7 @@ $secondary: white;
                 margin: auto;
                 margin-top: 20px;
                 margin-bottom: 15px;
+
                 img{
                     width: 100%;                    
                 }
@@ -137,6 +140,7 @@ $secondary: white;
         }
     }
     
+    //Footer is the same on all mobile pages
     footer{
         grid-area: footer;
         background-color: $secondary;
@@ -144,6 +148,145 @@ $secondary: white;
         h3{
             text-align: center;    
             margin-top: 35px;
+        }
+    }
+
+    @media (min-width: 768px){
+        //Start page nav - on top
+        nav{
+            li{
+                display: grid;
+                grid-template-columns: 1fr 1fr 1fr;
+                
+                a{
+                    &:first-of-type{
+                        ul{
+                            border-right: 1px solid black;
+                            border-bottom: 1px solid black;
+                        }
+                    }
+        
+                    &:last-of-type{
+                        ul{
+                            border-left: 1px solid black;
+                            border-top: 1px solid black;
+                        }
+                    }
+                }
+
+                ul{                    
+                    border-top: 1px solid black;
+                    border-bottom: 1px solid black;    
+                }
+            }
+        }
+
+        //Main - Start page
+        #start{
+            border-bottom: 1px solid black;
+
+            article{
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+            }
+
+            p{
+                border: none;
+            }
+        }
+
+        //App - nav at side
+        &#side{
+            grid-template-columns: 2fr 6fr;
+            grid-template-areas: 
+                "header header"
+                "nav main"
+                "footer footer";
+
+            //Nav at side - header css
+            header{
+                grid-area: header;
+                box-sizing: border-box;
+                border-bottom: 1px solid black;
+            }
+            
+            //Nav at side
+            nav{
+                grid-area: nav;
+
+                li{
+                    grid-template-columns: 1fr;
+                    
+                    a{
+                        &:first-of-type{
+                            ul{
+                                border-top: none;
+                                border-bottom: none;
+                            }
+                        }
+            
+                        &:last-of-type{
+                            ul{
+                                border-top: none;
+                                border-bottom: none;
+                            }
+                        }
+
+                        ul{
+                            border-left: none;
+                            border-right: 1px solid black;
+                            height: 24vh;
+                            line-height: 24vh;
+                        }
+                    }
+                }
+            }
+
+            //Main - second page
+            #second{
+                //Contains all articles
+                section{
+                    grid-area: section;
+                    height: 72vh;
+                    overflow: auto;
+                }
+
+                article{
+                    //Holds the img
+                    section{
+                        height: 100%;
+                        width: 95%;
+                        border: 1px solid black;
+                    }
+                }
+            }
+
+            //Main - third page
+            #third{
+                display: grid;
+                grid-template-columns: 2fr 1fr;
+                
+                //Holds the main text
+                article{
+                    box-sizing: border-box;
+                    border-right: 1px solid black;
+                    p{
+                        border: none;
+                    }
+                }
+
+                //Holds the ad/other text
+                aside{
+                    border-bottom: none;
+                }
+            }
+
+            //Footer for all side nav pages
+            footer{
+                grid-area: footer;
+                box-sizing: border-box;
+                border-top: 1px solid black;
+            }
         }
     }
 }

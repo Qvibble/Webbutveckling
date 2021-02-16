@@ -1,31 +1,41 @@
 import React from "react";
+import testImg from"../image.png";
 
-var articles = "";
+//Example text
+var imgText = "Det är ett välkänt faktum att läsare distraheras av läsbar text på en sida när man skall studera layouten. Poängen med Lorem Ipsum är att det ger ett normalt ordflöde, till skillnad från Text här, Text här, och ger intryck av att vara läsbar text. Många publiseringprogram och webbutvecklare använder Lorem Ipsum som test-text, och en sökning efter Lorem Ipsum avslöjar många webbsidor under uteckling. Olika versioner har dykt upp under åren, ibland av olyckshändelse, ibland med flit (mer eller mindre humoristiska).";
 
-createArticles(3);
+//Holds the articles 
+var articles = [];
 
-function Second(props){
+//Amount of articles to be created
+var amount = 5;
+
+//Creates the articles
+for(let i = 0; i < amount; i++){
+    articles.push(<Article id={i} text={imgText} img={testImg}/>);
+}
+
+function Second(){
     return(
         <main id="second">
-            {articles}
+            <section>
+                {articles}
+            </section>
         </main>
     );
 }
 
-function createArticles(amount){
-    for(let i = 0; i < amount; i++){
-        articles += <Article/>
-    }
+function Article(props){
+    return(
+        <article id={props.id}>
+            <section>
+                <img src={props.img} alt={props.img}/>
+                <h2>Bildtext-{props.id}</h2>
+                <p>{props.text}</p>
+            </section>
+        </article>        
+    );
 }
 
-function Article(props){
-    <article>
-        <section>
-            <img src={props.img} alt={props.img}/>
-            <h2>Bildtext</h2>
-            <p>{props.text}</p>
-        </section>
-    </article>
-}
 
 export default Second;

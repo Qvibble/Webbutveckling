@@ -14,12 +14,12 @@ function App() {
     <Router>
       <Switch>
         <Route path="/" exact component={() => <Home/>}/>
-        <Route path="/" exact component={() => <Search/>}/>
-        <Route path="/" exact component={() => <Login/>}/>
-        <Route path="/" exact component={() => <Register/>}/>
-        <Route path="/" exact component={() => <User/>}/>
-        <Route path="/" exact component={() => <Create/>}/>
-        <Route path="/" exact component={() => <Recipe/>}/>
+        <Route path="/search" exact component={() => <Search/>}/>
+        <Route path="/login" exact component={() => <Login/>}/>
+        <Route path="/register" exact component={() => <Register/>}/>
+        <Route path="/user" exact component={() => <User/>}/>
+        <Route path="/create" exact component={() => <Create/>}/>
+        <Route path="/recipe" exact component={() => <Recipe/>}/>
       </Switch>
 
     </Router>

@@ -15,7 +15,7 @@ body{
         "header"
         "main"
         "footer";
-    grid-template-rows: 200px auto 75px;
+    grid-template-rows: auto auto auto;
 
     header{
         grid-area: header;
@@ -27,8 +27,8 @@ body{
             "cat cat cat";
         grid-template-columns: 1fr 1fr 1fr;
         row-gap: 10px;
-        padding: 15px;
         height: 205px;
+        padding: 15px;
         background-color: $primary;        
 
         input{
@@ -114,9 +114,10 @@ body{
 
         }
         
-        li:active ul{
+        li:active ul, li:hover ul{
             display: block;
             border-bottom: 1px solid black;
+            position: relative;
         }
     }
 
@@ -127,6 +128,17 @@ body{
     }
 
     footer{
-        background-color: orangered;
+        grid-area: footer;
+
+        background-color: $primary;
+        text-align: center;
+
+        h2{
+            font-family: $largerText;
+        }
+
+        h3{
+            font-family: $smallerText;
+        }
     }
 }

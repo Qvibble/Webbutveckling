@@ -88,9 +88,10 @@ body{
         }
 
         //Kategorier
-        li{
+        ul{
             grid-area: cat;
 
+            padding: 0;
             list-style-type: none;
             font-family: $largerText;
             
@@ -99,13 +100,13 @@ body{
                 text-decoration: none;
 
                 //Gömmer första klickbara element
-                ul{
+                li{
                     display: none;
                 }
             }
             
             //Alla li element
-            ul{
+            li{
                 box-sizing: border-box;
                 padding-left: 0;
                 color: black;
@@ -117,13 +118,13 @@ body{
             }
             
             //Gömmer alla föutom första 
-            ul + ul {
+            li + li {
                 display: none;
             }
         }
         
         //Visar alla klickbara element
-        li:active ul, li:hover ul{
+        ul:active li, ul:hover li{
             display: block;
             border-bottom: 1px solid black;
         }
@@ -234,6 +235,21 @@ body{
             width: 100%;
             position: fixed;
             bottom: 0;
+        }
+    }
+
+    #recipe{
+        main{
+            display: grid;
+            grid-template-areas: 
+                "name likes"
+                "image image"
+                "title1 title1"
+                "ingredients ingredients"
+                "title2 title2"
+                "steps steps";
+            grid-template-columns: 1fr 1fr;
+            row-gap: 0;
         }
     }
 }

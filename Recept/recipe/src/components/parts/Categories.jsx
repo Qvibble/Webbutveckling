@@ -3,19 +3,19 @@ import {Link, withRouter} from "react-router-dom";
 
 function Categories(props) {
     return(
-        <li>
-            <ul>Kategorier</ul>
+        <ul>
+            <li>Kategorier</li>
             <Link to="/search">
-                <ul>Nöt</ul>
-                <ul>Fläsk</ul>
-                <ul>Kyckling</ul>
-                <ul>Vegetariskt</ul>
-                <ul>Veganskt</ul>
-                <ul>Förrätt</ul>
-                <ul>Varmrätt</ul>
-                <ul>Efterrätt</ul>
+                <li>Nöt</li>
+                <li>Fläsk</li>
+                <li>Kyckling</li>
+                <li>Vegetariskt</li>
+                <li>Veganskt</li>
+                <li>Förrätt</li>
+                <li>Varmrätt</li>
+                <li>Efterrätt</li>
             </Link>
-        </li>
+        </ul>
     );
 }
 

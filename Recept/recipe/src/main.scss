@@ -191,6 +191,7 @@ body{
 
         background-color: $primary;
         text-align: center;
+        padding: 0.6em 0;
 
         //Kontakt
         h2{
@@ -202,6 +203,37 @@ body{
         h3{
             color: white;
             font-family: $smallerText;
+        }
+    }
+
+    //Logga in sida
+    #login{
+        //Ta bort grid
+        header{
+            display: block;
+        }
+
+        //Logga in formulär
+        form{
+            legend{
+                font-family: $largerText;
+            }
+            
+            label{
+                font-family: $smallerText;
+            }
+
+            input[type=text], input[type=password]{
+                font-family: $smallerText;
+                padding-left: 10px;
+            }
+        }
+
+        //Footer fast på nedre kant
+        footer{
+            width: 100%;
+            position: fixed;
+            bottom: 0;
         }
     }
 }

@@ -15,7 +15,6 @@ body{
         "header"
         "main"
         "footer";
-    grid-template-rows: auto auto auto;
 
     header{
         grid-area: header;
@@ -27,33 +26,37 @@ body{
             "cat cat cat";
         grid-template-columns: 1fr 1fr 1fr;
         row-gap: 10px;
-        height: 205px;
         padding: 15px;
         background-color: $primary;        
 
+        //Alla header inputs
         input{
             font-family: $largerText;
-            height: 40px;
+            height: 50px;
             font-size: 1.5em;
             border: none;
             background-color: white;                
         }
 
+        //Hover logga in, sök
         input[type="submit"]:hover{
             background-color: $secondary;
         }
 
+        //Håller logo
         section{   
             grid-area: logo;
             
             width: 100px;
             margin: auto;
             
+            //Logo
             a>img{                
                 width: 100px;            
             }
         }
 
+        //Logga in knapp
         form:first-of-type{
             grid-area: login;
 
@@ -61,17 +64,17 @@ body{
             line-height: 94.5px;
         }
 
+        //Sök form
         form:last-of-type{
             grid-area: search;
 
             display: grid;
             grid-template-columns: 7fr auto;
             gap: 10px;
-            height: 40px;
             text-align: center;
 
 
-
+            //Sökfält
             input[type="text"]{                
                 width: 100%;
                 box-sizing: border-box;                
@@ -84,19 +87,24 @@ body{
             }
         }
 
+        //Kategorier
         li{
             grid-area: cat;
 
             list-style-type: none;
             font-family: $largerText;
             
+            //Alla länkade element
             a{
                 text-decoration: none;
+
+                //Gömmer första klickbara element
                 ul{
                     display: none;
                 }
             }
             
+            //Alla li element
             ul{
                 box-sizing: border-box;
                 padding-left: 0;
@@ -108,16 +116,16 @@ body{
                 margin: 0;
             }
             
+            //Gömmer alla föutom första 
             ul + ul {
                 display: none;
             }
-
         }
         
+        //Visar alla klickbara element
         li:active ul, li:hover ul{
             display: block;
             border-bottom: 1px solid black;
-            position: relative;
         }
     }
 
@@ -130,8 +138,8 @@ body{
             "pop";
         row-gap: 10px;
         padding: 10px;
-        height: 250px;
 
+        //Rubrik
         h3{
             grid-area: title;
 
@@ -144,17 +152,37 @@ body{
             background-color: $primary;
         }
 
+        //Håller rubrik + recept
         article{
             display: grid;
             grid-template-areas:
                 "title title "
                 "recipe recipe";
             grid-template-columns: 1fr 1fr;
+            row-gap: 10px;
             column-gap: 10px;
         }
 
+        //Recept
         section{
-            grid-area: recipe;
+            box-sizing: border-box;
+            border: 1px solid black;
+            width: 100%;
+            padding-top: 100%;
+        }
+
+        //Se alla recept knapp
+        input{
+            box-sizing: border-box;
+            width: 100%;
+            height: 50px;
+            font-family: $largerText;
+            background-color: white;
+            border: none;
+            color: black;
+            font-size: 1.2em;
+            border: 1px solid black;        
+            margin-top: 20px;    
         }
     }
 

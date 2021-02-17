@@ -1,0 +1,132 @@
+$primary: rgb(255, 164, 136);
+$secondary: rgb(245, 124, 88);
+$largerText: 'Reggae One', cursive;
+$smallerText: 'Roboto', sans-serif;
+
+
+body{
+    margin: 0;
+    padding: 0;
+}
+
+#root{
+    display: grid;
+    grid-template-areas: 
+        "header"
+        "main"
+        "footer";
+    grid-template-rows: 200px auto 75px;
+
+    header{
+        grid-area: header;
+        
+        display: grid;
+        grid-template-areas: 
+            "logo logo login"
+            "search search search"
+            "cat cat cat";
+        grid-template-columns: 1fr 1fr 1fr;
+        row-gap: 10px;
+        padding: 15px;
+        height: 205px;
+        background-color: $primary;        
+
+        input{
+            font-family: $largerText;
+            height: 40px;
+            font-size: 1.5em;
+            border: none;
+            background-color: white;                
+        }
+
+        input[type="submit"]:hover{
+            background-color: $secondary;
+        }
+
+        section{   
+            grid-area: logo;
+            
+            width: 100px;
+            margin: auto;
+            
+            a>img{                
+                width: 100px;            
+            }
+        }
+
+        form:first-of-type{
+            grid-area: login;
+
+            text-align: center;
+            line-height: 94.5px;
+        }
+
+        form:last-of-type{
+            grid-area: search;
+
+            display: grid;
+            grid-template-columns: 7fr auto;
+            gap: 10px;
+            height: 40px;
+            text-align: center;
+
+
+
+            input[type="text"]{                
+                width: 100%;
+                box-sizing: border-box;                
+                font-family: $smallerText;
+                padding-left: 10px;
+                font-size: 1.2em;
+                padding-top: 0;
+                padding-bottom: 0;
+            
+            }
+        }
+
+        li{
+            grid-area: cat;
+
+            list-style-type: none;
+            font-family: $largerText;
+            
+            a{
+                text-decoration: none;
+                ul{
+                    display: none;
+                }
+            }
+            
+            ul{
+                box-sizing: border-box;
+                padding-left: 0;
+                color: black;
+                text-align: center;
+                background-color: white;
+                height: 50px;
+                line-height: 50px;
+                margin: 0;
+            }
+            
+            ul + ul {
+                display: none;
+            }
+
+        }
+        
+        li:active ul{
+            display: block;
+            border-bottom: 1px solid black;
+        }
+    }
+
+    main{
+        background-color: orchid;
+
+        height: 250px;
+    }
+
+    footer{
+        background-color: orangered;
+    }
+}

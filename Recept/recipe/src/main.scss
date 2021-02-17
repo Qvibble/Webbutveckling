@@ -122,9 +122,40 @@ body{
     }
 
     main{
-        background-color: orchid;
+        grid-area: main;
 
+        display: grid;
+        grid-template-areas: 
+            "new"
+            "pop";
+        row-gap: 10px;
+        padding: 10px;
         height: 250px;
+
+        h3{
+            grid-area: title;
+
+            color: white;
+            line-height: 50px;
+            height: 55px;
+            padding-left: 10px;
+            border-radius: 5px;
+            font-family: $largerText;
+            background-color: $primary;
+        }
+
+        article{
+            display: grid;
+            grid-template-areas:
+                "title title "
+                "recipe recipe";
+            grid-template-columns: 1fr 1fr;
+            column-gap: 10px;
+        }
+
+        section{
+            grid-area: recipe;
+        }
     }
 
     footer{
@@ -133,11 +164,15 @@ body{
         background-color: $primary;
         text-align: center;
 
+        //Kontakt
         h2{
+            color: white;
             font-family: $largerText;
         }
 
+        //Mail telefon
         h3{
+            color: white;
             font-family: $smallerText;
         }
     }

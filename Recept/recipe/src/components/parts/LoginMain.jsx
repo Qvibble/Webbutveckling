@@ -1,5 +1,4 @@
 import React from "react";
-import {Link, Router, withRouter} from "react-router-dom";
 
 import LoginForm from "./LoginForm";
 
@@ -11,4 +10,4 @@ function LoginMain(params) {
     );
 }
 
-export default withRouter(LoginMain);
+export default LoginMain;

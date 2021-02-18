@@ -27,10 +27,10 @@ class Ball{
         ctx.closePath();
     }
 
-    move(){
+    move(paddle){
         this.x += this.xSpeed;
         this.y += this.ySpeed;
- 
+
         //Top
         if(this.y <= 0){
             this.ySpeed = this.SPEED;
@@ -48,6 +48,12 @@ class Ball{
             this.xSpeed = -this.SPEED;
         }
 
+        if(this.y > paddle.y && this.y < paddle.y + paddle.HEIGHT){
+            if(this.x > paddle.X && this.x < paddle.X + paddle.WIDTH){
+                this.xSpeed = this.SPEED;
+            }
+        }
+
         document.getElementById("xPos").innerHTML = "xPos: " + this.x;
         document.getElementById("xSpeed").innerHTML = "xSpeed: " + this.xSpeed;
         document.getElementById("yPos").innerHTML = "yPos: " + this.y;
@@ -60,8 +66,14 @@ class Pong{
         this.WIDTH = 15;
         this.HEIGHT = 75;
         
+        this.SPEED = 5;
+        //this.velocity = 0;
+
         this.X = 100;
         this.y = WINDOWHEIGHT/2 - this.HEIGHT/2; 
+
+        this.up = false;
+        this.down = false;
     }
 
     draw(){
@@ -69,21 +81,44 @@ class Pong{
         ctx.fillRect(this.X, this.y, this.WIDTH, this.HEIGHT);
     }
 
-    move(event){
-        if(KEY.W === event.keyCode || KEY.S === event.keyCode){
-            console.log("tes");
-
-            if(event.keyCode === KEY.W){
-                this.y -= 4;
-            }
-    
-            if(event.keyCode === KEY.S){
-                this.y += 4;
-            }
-
-            event.preventDefault();
+    move(){
+        if(this.up === true){
+            this.y -= this.SPEED;
+        }
+        
+        if(this.down === true){            
+            this.y += this.SPEED;
         }
 
+        if(this.y < 0){
+            this.y = 0;
+        }
+
+        if(this.y + this.HEIGHT > WINDOWHEIGHT){
+            this.y = WINDOWHEIGHT - this.HEIGHT;
+        }
+    }
+
+    setDirection(event){
+        //Up
+        if(event.keyCode === KEY.W){
+            if(event.type === "keydown"){
+                this.up = true;
+            }else if(event.type === "keyup"){
+                this.up = false;                
+            }            
+        }
+
+        //Down
+        if(event.keyCode === KEY.S){
+            if(event.type === "keydown"){
+                this.down = true;
+            }else if(event.type === "keyup"){
+                this.down = false;
+            }            
+        }
+
+        event.preventDefault();
     }
 }
 
@@ -100,11 +135,15 @@ function init(){
     ctx.fillRect(0, 0, 800, 400);
 
     ctx.fillStyle = "white";
-
+    
     player1 = new Pong();
 
     document.addEventListener("keydown",(e)=>{
-        player1.move(e);
+        player1.setDirection(e);
+    });
+
+    document.addEventListener("keyup", (e) => {
+        player1.setDirection(e);
     });
 
     ball = new Ball(WINDOWWIDTH/2, WINDOWHEIGHT/2, 10);
@@ -128,5 +167,38 @@ function draw(){
 }
 
 function move(){
-    ball.move();
+    ball.move(player1);
+    player1.move();
 }
+
+/*
+if(this.up === true){
+            if(this.velocity < this.SPEED){
+                this.velocity += 0.1;
+            }
+            
+            if(this.velocity > this.SPEED){
+                this.velocity = this.SPEED
+            }
+
+            console.log(this.velocity);
+            this.y -= this.velocity;
+        }else if(this.down === true){
+            if(this.velocity < this.SPEED){
+                this.velocity += 0.1;
+            }
+            
+            if(this.velocity > this.SPEED){
+                this.velocity = this.SPEED
+            }
+
+            console.log(this.velocity);
+            this.y += this.velocity;
+        }else{
+            if(this.velocity > 0){
+                this.velocity -= 0.1;
+            }else{
+                this.velocity = 0;
+            }
+        }
+*/

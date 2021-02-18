@@ -1,0 +1,255 @@
+$primary: rgb(255, 164, 136);
+$secondary: rgb(245, 124, 88);
+$largerText: 'Reggae One', cursive;
+$smallerText: 'Roboto', sans-serif;
+
+
+body{
+    margin: 0;
+    padding: 0;
+}
+
+#root{
+    display: grid;
+    grid-template-areas: 
+        "header"
+        "main"
+        "footer";
+
+    header{
+        grid-area: header;
+        
+        display: grid;
+        grid-template-areas: 
+            "logo logo login"
+            "search search search"
+            "cat cat cat";
+        grid-template-columns: 1fr 1fr 1fr;
+        row-gap: 10px;
+        padding: 15px;
+        background-color: $primary;        
+
+        //Alla header inputs
+        input{
+            font-family: $largerText;
+            height: 50px;
+            font-size: 1.5em;
+            border: none;
+            background-color: white;                
+        }
+
+        //Hover logga in, sök
+        input[type="submit"]:hover{
+            background-color: $secondary;
+        }
+
+        //Håller logo
+        section{   
+            grid-area: logo;
+            
+            width: 100px;
+            margin: auto;
+            
+            //Logo
+            a>img{                
+                width: 100px;            
+            }
+        }
+
+        //Logga in knapp
+        form:first-of-type{
+            grid-area: login;
+
+            text-align: center;
+            line-height: 94.5px;
+        }
+
+        //Sök form
+        form:last-of-type{
+            grid-area: search;
+
+            display: grid;
+            grid-template-columns: 7fr auto;
+            gap: 10px;
+            text-align: center;
+
+
+            //Sökfält
+            input[type="text"]{                
+                width: 100%;
+                box-sizing: border-box;                
+                font-family: $smallerText;
+                padding-left: 10px;
+                font-size: 1.2em;
+                padding-top: 0;
+                padding-bottom: 0;
+            
+            }
+        }
+
+        //Kategorier
+        ul{
+            grid-area: cat;
+
+            padding: 0;
+            list-style-type: none;
+            font-family: $largerText;
+            
+            //Alla länkade element
+            a{
+                text-decoration: none;
+
+                //Gömmer första klickbara element
+                li{
+                    display: none;
+                }
+            }
+            
+            //Alla li element
+            li{
+                box-sizing: border-box;
+                padding-left: 0;
+                color: black;
+                text-align: center;
+                background-color: white;
+                height: 50px;
+                line-height: 50px;
+                margin: 0;
+            }
+            
+            //Gömmer alla föutom första 
+            li + li {
+                display: none;
+            }
+        }
+        
+        //Visar alla klickbara element
+        ul:active li, ul:hover li{
+            display: block;
+            border-bottom: 1px solid black;
+        }
+    }
+
+    main{
+        grid-area: main;
+
+        display: grid;
+        grid-template-areas: 
+            "new"
+            "pop";
+        row-gap: 10px;
+        padding: 10px;
+
+        //Rubrik
+        h3{
+            grid-area: title;
+
+            color: white;
+            line-height: 50px;
+            height: 55px;
+            padding-left: 10px;
+            border-radius: 5px;
+            font-family: $largerText;
+            background-color: $primary;
+        }
+
+        //Håller rubrik + recept
+        article{
+            display: grid;
+            grid-template-areas:
+                "title title "
+                "recipe recipe";
+            grid-template-columns: 1fr 1fr;
+            row-gap: 10px;
+            column-gap: 10px;
+        }
+
+        //Recept
+        section{
+            box-sizing: border-box;
+            border: 1px solid black;
+            width: 100%;
+            padding-top: 100%;
+        }
+
+        //Se alla recept knapp
+        input{
+            box-sizing: border-box;
+            width: 100%;
+            height: 50px;
+            font-family: $largerText;
+            background-color: white;
+            border: none;
+            color: black;
+            font-size: 1.2em;
+            border: 1px solid black;        
+            margin-top: 20px;    
+        }
+    }
+
+    footer{
+        grid-area: footer;
+
+        background-color: $primary;
+        text-align: center;
+        padding: 0.6em 0;
+
+        //Kontakt
+        h2{
+            color: white;
+            font-family: $largerText;
+        }
+
+        //Mail telefon
+        h3{
+            color: white;
+            font-family: $smallerText;
+        }
+    }
+
+    //Logga in sida. Även Skapa konto sidan 
+    #login{
+        //Ta bort grid
+        header{
+            display: block;
+        }
+
+        //Logga in formulär
+        form{
+            legend{
+                font-family: $largerText;
+            }
+            
+            label{
+                font-family: $smallerText;
+            }
+
+            input[type=text], input[type=password]{
+                font-family: $smallerText;
+                padding-left: 10px;
+            }
+        }
+
+        //Footer fast på nedre kant
+        footer{
+            width: 100%;
+            position: fixed;
+            bottom: 0;
+        }
+    }
+
+    #recipe{
+        main{
+            display: grid;
+            grid-template-areas: 
+                "name likes"
+                "image image"
+                "title1 title1"
+                "ingredients ingredients"
+                "title2 title2"
+                "steps steps";
+            grid-template-columns: 1fr 1fr;
+            row-gap: 0;
+        }
+    }
+}

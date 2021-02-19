@@ -69,7 +69,7 @@ body{
             grid-area: search;
 
             display: grid;
-            grid-template-columns: 7fr auto;
+            grid-template-columns: 1fr auto;
             gap: 10px;
             text-align: center;
 
@@ -141,7 +141,7 @@ body{
         padding: 10px;
 
         //Rubrik
-        h3{
+        h2{
             grid-area: title;
 
             color: white;
@@ -166,10 +166,32 @@ body{
 
         //Recept
         section{
-            box-sizing: border-box;
-            border: 1px solid black;
             width: 100%;
-            padding-top: 100%;
+            border-radius: 10px;
+            position: relative;
+
+            //Recept namn
+            h3{
+                box-sizing: border-box;
+                position: absolute;
+                bottom: 0;
+                margin: 0;
+                width: 100%;
+                color: white;
+                line-height: 50px;
+                height: 55px;
+                padding-left: 10px;
+                border-radius: 5px;
+                font-family: $largerText;
+                background-color: $primary;
+            }
+
+            //Recept bilder
+            img{
+                width: 100%;
+                height: auto;
+                border-radius: 10px;
+            }
         }
 
         //Se alla recept knapp
@@ -244,12 +266,93 @@ body{
             grid-template-areas: 
                 "name likes"
                 "image image"
-                "title1 title1"
+                "ingtitle ingtitle"
                 "ingredients ingredients"
-                "title2 title2"
+                "steptitle steptitle"
                 "steps steps";
-            grid-template-columns: 1fr 1fr;
+            grid-template-columns: 1fr auto;
             row-gap: 0;
+
+            //Recept namn
+            h1{
+                grid-area: name;
+
+                font-family: $largerText;
+            }
+
+            //Likes & hjärt ikon
+            section{
+                grid-area: likes;
+
+                display: grid;
+                grid-template-areas: 
+                    "amount heart";
+                grid-template-columns: 1fr auto;
+                border: none;
+                height: 55px;
+                width: 100%;
+                padding: 0;
+                border-radius: 5px;
+                background-color: $primary;
+
+                //Likes
+                h3{
+                    grid-area: amount;
+
+                    background-color: initial;
+                    margin: 0;
+                    position: initial;
+                }
+                
+                //Hjärta
+                img{
+                    grid-area: heart;
+
+                    margin: auto;
+                    width: 55px;
+                    height: 55px;
+                    margin-left: 5px;
+                    margin-right: 5px;
+                }
+            }
+
+            //Bild på maten
+            img{
+                grid-area: image;
+
+                width: 100%;
+                max-width: 500px;
+                height: auto;
+                border-radius: 10px;
+            }
+
+            //Ingredienser
+            h2:first-of-type{
+                grid-area: ingtitle;
+
+                font-family: $largerText;
+            }
+
+            //Steg
+            h2:last-of-type{
+                grid-area: steptitle;
+
+                font-family: $largerText;
+            }
+
+            //ingredienser i receptet
+            ul{
+                grid-area: ingredients;
+
+                font-family: $smallerText;
+            }
+
+            //Stegen i receptet
+            ol{
+                grid-area: steps;
+
+                font-family: $smallerText;
+            }
         }
     }
 }

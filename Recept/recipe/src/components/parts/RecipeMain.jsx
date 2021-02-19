@@ -1,17 +1,16 @@
 import React from "react";
-import {ulnk, Router, withRouter} from "react-router-dom";
+import food from "../images/ramen.jpg";
+import heart from "../images/heart.png";
 
 function RecipeMain(params) {
     return(
         <main>
             <h1>Recept namn ------------</h1>
             <section>
-                <h3>5000</h3>            
-                <img/>
+                <h3>5.0K</h3>            
+                <img src={heart}/>
             </section>
-            <section>
-                <img/>
-            </section>
+            <img src={food}/>
             <h2>Ingredienser:</h2>          
             <ul>
                 <li>majs</li>
@@ -20,16 +19,16 @@ function RecipeMain(params) {
                 <li>majs</li>
             </ul>
             <h2>Instruktioner:</h2>
-            <ul>
+            <ol>
                 <li>Steg 1</li>
                 <li>Steg 2</li>
                 <li>Steg 3</li>
                 <li>Steg 4</li>
                 <li>Steg 5</li>
                 <li>Steg 6</li>
-            </ul>
+            </ol>
         </main>
     );
 }
 
-export default withRouter(RecipeMain);
+export default RecipeMain;

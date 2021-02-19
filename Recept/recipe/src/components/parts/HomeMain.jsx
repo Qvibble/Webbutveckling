@@ -1,23 +1,55 @@
 import React from "react";
 import {Link, Router, withRouter} from "react-router-dom";
+import food from "../images/ramen.jpg";
 
 function HomeMain(params) {
     return(
         <main>
             <article>
-                <h3>Senaste Recept</h3>
-                <section></section>
-                <section></section>
-                <section></section>
-                <section></section>
+                <h2>Senaste Recept</h2>
+                <section>
+                    <h3>Recept namn</h3>
+                    <img src={food}/>
+                </section>
+                <section>
+                    <h3>Recept namn</h3>
+                    <img src={food}/>
+                </section>
+                <section>
+                    <h3>Recept namn</h3>
+                    <img src={food}/>
+                </section>
+                <section>
+                    <h3>Recept namn</h3>
+                    <img src={food}/>
+                </section>
+                <section>
+                    <h3>Recept namn</h3>
+                    <img src={food}/>
+                </section>
+                <section>
+                    <h3>Recept namn</h3>
+                    <img src={food}/>
+                </section>
             </article>
             <article>
-                <h3>Populära Recept</h3>                
-                <section></section>
-                <section></section>
-                <section></section>
-                <section></section>
-
+                <h2>Populära Recept</h2>                
+                <section>
+                    <h3>Recept namn</h3>
+                    <img src={food}/>
+                </section>
+                <section>
+                    <h3>Recept namn</h3>
+                    <img src={food}/>
+                </section>
+                <section>
+                    <h3>Recept namn</h3>
+                    <img src={food}/>
+                </section>
+                <section>
+                    <h3>Recept namn</h3>
+                    <img src={food}/>
+                </section>                            
             </article>
             <form>
                 <Link to="search">

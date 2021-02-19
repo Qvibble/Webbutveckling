@@ -21,10 +21,10 @@ body{
         
         display: grid;
         grid-template-areas: 
-            "logo logo login"
-            "search search search"
-            "cat cat cat";
-        grid-template-columns: 1fr 1fr 1fr;
+            "logo login"
+            "search  search"
+            "cat cat";
+        grid-template-columns: 1fr auto;
         row-gap: 10px;
         padding: 15px;
         background-color: $primary;        
@@ -277,6 +277,8 @@ body{
             h1{
                 grid-area: name;
 
+                margin: 0;
+                font-size: 1.7em;
                 font-family: $largerText;
             }
 
@@ -324,6 +326,7 @@ body{
                 max-width: 500px;
                 height: auto;
                 border-radius: 10px;
+                margin-top: 15px;
             }
 
             //Ingredienser
@@ -352,6 +355,78 @@ body{
                 grid-area: steps;
 
                 font-family: $smallerText;
+            }
+        }
+    }
+
+    #create{
+        main{
+            //Titel
+            h1{
+                box-sizing: border-box;
+                bottom: 0;
+                margin: 0;
+                width: 100%;
+                color: white;
+                line-height: 50px;
+                height: 55px;
+                padding-left: 10px;
+                border-radius: 5px;
+                font-family: $largerText;
+                background-color: $primary;
+            }
+
+            form{
+                display: grid;
+                grid-template-columns: 1fr;
+                row-gap: 10px;
+
+                label{
+                    font-family: $smallerText;
+                    font-size: 1.2em;
+                }
+    
+                input[type=text]{
+                    margin: 0;
+                    font-family: $smallerText;
+                }
+    
+                textarea{
+                    resize: none;
+                    width: 100%;
+                    box-sizing: border-box;
+                    border: 1px solid black;
+                    font-family: $smallerText;
+                    font-size: 1.2em;
+                }
+
+                select{
+                    width: 50px;
+                    font-family: $smallerText;
+                    font-size: 1em;
+                    margin-left: 15px;
+                }
+
+                input[type=file]{
+                    font-family: $smallerText;
+                    border: none;
+                    margin: 0;
+                }
+
+                section{
+                    display: grid;
+                    grid-template-columns: 8fr 2fr;
+                    column-gap: 20px;
+                    row-gap: 10px;
+                }
+
+                //Mängd label
+                span:first-of-type{
+                    label:last-of-type{
+                        float: right;
+
+                    }
+                }
             }
         }
     }

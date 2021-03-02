@@ -430,4 +430,55 @@ body{
             }
         }
     }
+
+    @media (min-width: 768px){
+        header{
+            grid-template-areas: 
+                "logo search login"
+                "logo cat login";
+            grid-template-columns: 1fr 2fr 1fr;
+
+            //logo section
+            section{
+                margin: 0 auto;
+                width: 165px;
+                height: 150px;
+                a{
+                    //logo
+                    img{
+                        width: 100%;
+                    }
+                }
+            }
+        }
+        
+        main{
+            width: 70%;
+            margin: auto;
+
+            //recept som visas
+            article{
+                grid-template-areas: 
+                    "title title title"
+                    "recipe recipe recipe";
+                grid-template-columns: 1fr 1fr 1fr;
+            }
+        }
+
+        #create{
+            main{
+                //skapa recept
+                form{
+                    margin: auto;
+                    max-width: 800px;
+                }
+            }
+        }
+        
+        #login{
+            main{
+                max-width: 600px;
+            }
+        }
+    }
 }

@@ -250,6 +250,12 @@ body{
                 font-family: $smallerText;
                 padding-left: 10px;
             }
+
+            a{
+                display: block;
+                margin-top: 1em;
+                margin-bottom: 1em;
+            }
         }
 
         //Footer fast på nedre kant

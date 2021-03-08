@@ -12,9 +12,7 @@ function RegisterForm(props) {
                 <input type="password" id="password" name="password"/><br/>
                 <label htmlFor="mail">Mail</label>
                 <input type="mail" id="mail" name="mail"/><br/>
-                <Link to="/login">
-                    <input type="submit" value="Skapa konto"/>
-                </Link>
+                <input type="submit" value="Skapa konto"/>
             </fieldset>
         </form>
     );

@@ -64,7 +64,7 @@ var testRecipes = [{
     "likes": 3211,
 }];
 
-class HomeMain extends React.Component(){
+class HomeMain extends React.Component{
     constructor(props){
         super(props);
 

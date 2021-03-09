@@ -10,6 +10,10 @@ body{
 }
 
 #root{
+    input[type=submit]{
+        cursor: pointer;
+    }
+
     display: grid;
     grid-template-areas: 
         "header"
@@ -83,28 +87,39 @@ body{
                 font-size: 1.2em;
                 padding-top: 0;
                 padding-bottom: 0;
-            
+                
             }
         }
-
+        
         //Kategorier
         ul{
             grid-area: cat;
-
+            background-color: aqua;
+            height: 50px;
+            transition: height 1s;
             padding: 0;
             list-style-type: none;
             font-family: $largerText;
+            overflow: hidden;
             
             //Alla länkade element
             a{
                 text-decoration: none;
 
-                //Gömmer första klickbara element
-                li{
-                    display: none;
+                li:last-of-type{
+                    border-bottom: none;
                 }
             }
             
+            //Första li - "Kategorier"
+            &>li:first-of-type{
+                box-sizing: unset;
+            }
+
+            &>li:first-of-type:hover{
+                border-bottom: 1px solid black;
+            }
+
             //Alla li element
             li{
                 box-sizing: border-box;
@@ -115,18 +130,12 @@ body{
                 height: 50px;
                 line-height: 50px;
                 margin: 0;
-            }
-            
-            //Gömmer alla föutom första 
-            li + li {
-                display: none;
+                border-bottom: 1px solid black;
             }
         }
-        
-        //Visar alla klickbara element
-        ul:active li, ul:hover li{
-            display: block;
-            border-bottom: 1px solid black;
+
+        ul:hover{
+            height: 450px;
         }
     }
 
@@ -231,6 +240,10 @@ body{
 
     //Logga in sida. Även Skapa konto sidan 
     #login{
+        #error{
+            color: red;
+            font-family: $smallerText;
+        }
         //Ta bort grid
         header{
             display: block;
@@ -246,7 +259,7 @@ body{
                 font-family: $smallerText;
             }
 
-            input[type=text], input[type=password]{
+            input[type=text], input[type=password], input[type=mail]{
                 font-family: $smallerText;
                 padding-left: 10px;
             }
@@ -393,13 +406,16 @@ body{
                 }
     
                 input[type=text]{
+                    padding-left: 10px;
                     margin: 0;
                     font-family: $smallerText;
                 }
     
                 textarea{
                     resize: none;
+                    box-sizing: border-box;
                     width: 100%;
+                    padding: 10px;
                     box-sizing: border-box;
                     border: 1px solid black;
                     font-family: $smallerText;

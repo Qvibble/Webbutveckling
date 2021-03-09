@@ -68,31 +68,36 @@ class HomeMain extends React.Component{
     constructor(props){
         super(props);
 
-        this.popularRecipes = undefined;
-        this.newRecipes = undefined;
+        this.state = {
+            popularRecipes: "",
+            newRecipes: ""
+        };
+
+        this.getNewRecipes = this.getNewRecipes.bind(this);
+        this.getPopularRecipes = this.getPopularRecipes.bind(this);
     }
 
-    getPopularRecipes(){
-        fetch("http://localhost:8080/Recipe/api/recipe/random", {
+    async getPopularRecipes(){
+        await fetch("http://localhost:8080/Recipe/api/recipe/random", {
             method: "GET",
             mode: 'cors',
         }).then((response) => {
             return response.json();
         }).then(data =>{
-            this.popularRecipes = data;
+            this.setState({popularRecipes: data});
         }).catch(err => {
             console.error(err);
         });
     }
-
-    getNewRecipes(){
-        fetch("http://localhost:8080/Recipe/api/recipe/new", {
+    
+    async getNewRecipes(){
+        await fetch("http://localhost:8080/Recipe/api/recipe/new", {
             method: "GET",
             mode: 'cors',
         }).then((response) => {
             return response.json();
         }).then(data =>{
-            this.newRecipes = data;
+            this.setState({newRecipes: data});
         }).catch(err => {
             console.error(err);
         });
@@ -103,7 +108,7 @@ class HomeMain extends React.Component{
         this.getPopularRecipes();
     }
 
-    render(){        
+    render(){     
         function FoodSection(props){
             return(
                 <section id = {props.id}>
@@ -112,35 +117,44 @@ class HomeMain extends React.Component{
                 </section>
             );
         }
-    
-        function NewRecipesArticle(){
-            let recipes = [];
-            for(let i = 0; i < testRecipes.length; i++){
-                recipes.push(<FoodSection name={testRecipes[i].name} image={testRecipes[i].image} key={testRecipes[i].id}/>);
-            }
+
+        //Håller newRecipes komponenten
+        let newRecipes = undefined;
+        //Håller alla nya recept som skapas
+        let recipes = [];
+
+        //Skapar alla FoodSection element
+        for(let i = 0; i < this.state.newRecipes.length; i++){
+            recipes.push(<FoodSection name={this.state.newRecipes[i].name} image={this.state.newRecipes[i].image} key={this.state.newRecipes[i].id}/>);
+        }
         
-            return <article>
+        //Lägger till alla Foodsections i komponenten
+        newRecipes = (
+            <article>
                 <h2>Senaste Recept</h2>
                 {recipes}
-            </article>;
+            </article>
+        );
+        
+        //Håller popuplarRecipes komponenten
+        let popularRecipes = undefined;
+        recipes = [];
+
+        for(let i = 0; i < this.state.popularRecipes.length; i++){
+            recipes.push(<FoodSection name={this.state.popularRecipes[i].name} image={this.state.popularRecipes[i].image} key={this.state.popularRecipes[i].id}/>);
         }
     
-        function PopularRecipesArticle(){
-            let recipes = [];
-            for(let i = 0; i < testRecipes.length; i++){
-                recipes.push(<FoodSection name={testRecipes[i].name} image={testRecipes[i].image} key={testRecipes[i].id}/>);
-            }
-        
-            return <article>
+        popularRecipes = (
+            <article>
                 <h2>Populära Recept</h2>
                 {recipes}
-            </article>;
-        }
+            </article>
+        );
 
-        return(
-            <main>
-                <NewRecipesArticle/>
-                <PopularRecipesArticle/>
+       return(
+           <main>
+                {newRecipes}
+                {popularRecipes}
                 <form>
                     <Link to="search">
                         <input type="submit" value="Se alla recept"/>

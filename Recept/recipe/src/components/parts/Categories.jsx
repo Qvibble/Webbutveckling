@@ -9,6 +9,7 @@ function Categories(props) {
                 <li>Nöt</li>
                 <li>Fläsk</li>
                 <li>Kyckling</li>
+                <li>Fisk</li>
                 <li>Vegetariskt</li>
                 <li>Veganskt</li>
                 <li>Förrätt</li>

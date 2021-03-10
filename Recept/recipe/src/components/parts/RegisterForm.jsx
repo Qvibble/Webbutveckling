@@ -31,7 +31,6 @@ class RegisterForm extends React.Component{
         }).then((response) => {
             /* Om det inte gick att skapa kontot */
             if(response.status === 400){
-                errorMessage.style.color = "red";
                 errorMessage.innerHTML = "Det gick inte att skapa kontot";
             }
     
@@ -112,6 +111,12 @@ class RegisterForm extends React.Component{
     componentDidMount(){
         let registerForm = document.querySelector("form");
         registerForm.addEventListener("input", this.checkFields);
+
+        /* Stänger av skapa konto knappen så att en tom användare inte kan skapas */
+        registerForm.submitBtn.disabled = true;
+        registerForm.submitBtn.style.color = "gray";
+        registerForm.submitBtn.style.cursor = "default";
+        registerForm.submitBtn.style.borderColor = "gray";
 
         /* Om användaren redan är inloggad, skicka användaren till sin sida */
         if(sessionStorage.getItem("username") !== null){

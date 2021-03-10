@@ -8,8 +8,13 @@ import Categories from "./Categories";
 class Header extends React.Component {
     constructor(props){
         super(props);
+    }
 
-        this.buttonText = "asas";
+    componentDidMount(){
+        if(sessionStorage.getItem("username") !== null){
+            //Gör min sida knappen synlig
+            document.getElementById("myBtn").style.display = "initial";
+        }
     }
 
     render(){
@@ -20,9 +25,10 @@ class Header extends React.Component {
         if(sessionStorage.getItem("username") !== null){
             buttonText = "Logga ut";
             buttonLink = "/";
+            
         }else{
             buttonText = "Logga in";
-            buttonLink = "/login";
+            buttonLink = "/login";            
         }
 
         /**
@@ -42,6 +48,15 @@ class Header extends React.Component {
             window.location.replace(buttonLink)
         }
 
+        /**
+         * Tar användaren till användarsidan
+         */
+        function goToUser(event){
+            event.preventDefault();
+
+            window.location.replace("/user")
+        }
+
         return(
             <header>
                 <section>
@@ -49,9 +64,12 @@ class Header extends React.Component {
                         <img src={logo}/>
                     </Link>
                 </section>
-                <form method="post" onSubmit={changeLocation}>
-                    <input type="submit" value={buttonText}/>
-                </form>                
+                <section>
+                    <form method="post">
+                        <input type="submit" value={buttonText} onClick={changeLocation}/>
+                        <input type="submit" id="myBtn" value="Min sida" onClick={goToUser}/>
+                    </form>                
+                </section>
                 <SearchForm/>
                 <Categories/>
             </header>

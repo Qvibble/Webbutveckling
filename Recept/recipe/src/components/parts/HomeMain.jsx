@@ -2,68 +2,6 @@ import React from "react";
 import {Link, Router, withRouter} from "react-router-dom";
 import food from "../images/ramen.jpg";
 
-var testRecipes = [{
-    "id": 5,
-    "name": "Kattbullar",
-    "description": "Bara katt",
-    "steps": "1. Katt,2. Bullar",
-    "ingredients": [
-        {
-            "name": "Katt",
-            "amount": "5 Kg"
-        },
-        {
-            "name": "Bullar",
-            "amount": "26 Kg"
-        },
-        {
-            "name": "Majs",
-            "amount": "3"
-        },        
-    ],
-    "likes": 3211,
-},{
-    "id": 2,
-    "name": "KÖttbullar",
-    "description": "Bara katt",
-    "steps": "1. Katt,2. Bullar",
-    "ingredients": [
-        {
-            "name": "Katt",
-            "amount": "5 Kg"
-        },
-        {
-            "name": "Bullar",
-            "amount": "26 Kg"
-        },
-        {
-            "name": "Majs",
-            "amount": "3"
-        },        
-    ],
-    "likes": 3211,
-},{
-    "id": 87,
-    "name": "ja",
-    "description": "Bara katt",
-    "steps": "1. Katt,2. Bullar",
-    "ingredients": [
-        {
-            "name": "Katt",
-            "amount": "5 Kg"
-        },
-        {
-            "name": "Bullar",
-            "amount": "26 Kg"
-        },
-        {
-            "name": "Majs",
-            "amount": "3"
-        },        
-    ],
-    "likes": 3211,
-}];
-
 class HomeMain extends React.Component{
     constructor(props){
         super(props);

@@ -1,5 +1,5 @@
 $primary: rgb(255, 164, 136);
-$secondary: rgb(245, 124, 88);
+$secondary: rgb(187, 217, 241);
 $largerText: 'Reggae One', cursive;
 $smallerText: 'Roboto', sans-serif;
 
@@ -10,6 +10,11 @@ body{
 }
 
 #root{
+    #error{
+        color: red;
+        font-family: $smallerText;
+    }
+
     input[type=submit]{
         cursor: pointer;
     }
@@ -61,15 +66,27 @@ body{
         }
 
         //Logga in knapp
-        form:first-of-type{
+        section:last-of-type{
             grid-area: login;
+            width: auto;
+            margin: 0 auto;
 
-            text-align: center;
-            line-height: 94.5px;
+            form{
+                display: grid;
+                row-gap: 10px;
+                input{
+                    text-align: center;
+                    width: 100%;
+                }
+    
+                input:last-of-type{
+                    display: none;
+                }
+            }
         }
 
         //Sök form
-        form:last-of-type{
+        &>form{
             grid-area: search;
 
             display: grid;
@@ -94,7 +111,6 @@ body{
         //Kategorier
         ul{
             grid-area: cat;
-            background-color: aqua;
             height: 50px;
             transition: height 1s;
             padding: 0;
@@ -135,7 +151,7 @@ body{
         }
 
         ul:hover{
-            height: 450px;
+            height: 500px;
         }
     }
 
@@ -240,10 +256,6 @@ body{
 
     //Logga in sida. Även Skapa konto sidan 
     #login{
-        #error{
-            color: red;
-            font-family: $smallerText;
-        }
         //Ta bort grid
         header{
             display: block;
@@ -411,6 +423,7 @@ body{
                     font-family: $smallerText;
                 }
     
+                //Steg - beskrivning
                 textarea{
                     resize: none;
                     box-sizing: border-box;
@@ -435,11 +448,28 @@ body{
                     margin: 0;
                 }
 
-                section{
+                //Ingredienser
+                section:first-of-type{
                     display: grid;
                     grid-template-columns: 8fr 2fr;
                     column-gap: 20px;
                     row-gap: 10px;
+                }
+
+                //Kategorier
+                section:last-of-type{
+                    display: grid;
+                    grid-template-columns: 1fr 1fr 1fr;
+                    column-gap: 20px;
+
+                    input{
+                        border-radius: 25px;
+                    }
+
+                    input:hover{
+                        background-color: $secondary;
+                        cursor: pointer;
+                    }
                 }
 
                 //Mängd label
@@ -459,9 +489,21 @@ body{
                 "logo search login"
                 "logo cat login";
             grid-template-columns: 1fr 2fr 1fr;
+            
+            //Logga in knapp - min sida knapp
+            section:last-of-type{
+                form{
+                    row-gap: 30px;
 
+                    input{
+                        text-align: center;
+                        width: 100%;                       
+                    }
+                }
+            }
+            
             //logo section
-            section{
+            section:first-of-type{
                 margin: 0 auto;
                 width: 165px;
                 height: 150px;

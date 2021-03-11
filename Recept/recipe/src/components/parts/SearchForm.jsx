@@ -9,44 +9,27 @@ class SearchForm extends React.Component {
             form: ""
         }
 
-        this.getRecipes = this.getRecipes.bind(this);
+        this.setSearchTerm = this.setSearchTerm.bind(this);
     }
 
-    async getRecipes(event){
+    setSearchTerm(event){
         event.preventDefault();
 
-        //Om sökfältet inte är tomt
+        //Sparar det som söks på i session storage
         if(this.state.form.searchBar.value !== ""){
             let searchTerm = this.state.form.searchBar.value.trim();
-            console.log("saeragbc temer: " + searchTerm);
-            await fetch("http://localhost:8080/Recipe/api/recipe/search", {
-                method: "GET",
-                mode: 'cors',
-                headers: {
-                    "SearchTerm": searchTerm
-                }
-            }).then((response) => {
-                //Om det gick att söka
-                if(response.ok){
-                    //Sparar det användaren sökte på
-                    sessionStorage.setItem("searchTerm", searchTerm);
-                    window.location.replace("/search");
+            sessionStorage.setItem("searchTerm", searchTerm);
 
-                    /* Om man inte redan befinner sök på sök sidan, gå dit */
-                    //if(window.location.pathname !== "/search"){
-                    //}else{
-                    //    this.state.form.searchBar.value = null;
-                    //}
-                }
-
-                return response.json();
-            }).then(data =>{
-                sessionStorage.setItem("searchedRecipes", JSON.stringify(data));
-            }).catch(err => {
-                console.error(err);
-            });
+            /* Om man inte redan befinner sök på sök sidan, gå dit */
+            if(window.location.pathname !== "/search"){
+                window.location.replace("/search");
+            }else{
+                this.state.form.searchBar.value = null;
+            }
         }
     }
+
+    
 
     componentDidMount(){
         //Sätter referens till formuläret sökfältet ligger i
@@ -55,7 +38,7 @@ class SearchForm extends React.Component {
 
     render(){
         return(
-            <form id="searchForm" method="post" onSubmit={this.getRecipes}>
+            <form id="searchForm" method="post" onSubmit={this.setSearchTerm}>
                 <input type="text" name="searchBar" placeholder="Namn på recept..."></input>
                 <input type="submit" name="submitBtn" value="Sök"/>
             </form>

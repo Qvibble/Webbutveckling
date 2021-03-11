@@ -7,94 +7,86 @@ class SearchMain extends React.Component {
         super(props);
         
         this.state = {
-            searchTitle: []
+            searchTitle: [],
+            recipesComponent: []
         }
         
-        this.title = this.title.bind(this);
+        this.content = this.content.bind(this);
+        this.getRecipes = this.getRecipes.bind(this);
     }
     
-    title(){
+    content(){
+        console.log("content");
         //Sparar det användaren sökte på och tar bort det från session storage
         let title = [<h2 key="title">Din sökning: "{sessionStorage.getItem("searchTerm")}"</h2>];
-        sessionStorage.removeItem("searchTerm");
+        console.log(sessionStorage.getItem("searchTerm"));
         this.setState({searchTitle: title});
-    }
-
-    componentDidMount(){
-        this.title();
-    }
-    
-    render(){
-        function FoodSection(props){
-            return(
-                <Link to="/recipe">
+        
+        //Hämtar recepten från backend
+        this.getRecipes().then(promise => {
+            //Tar bort det som söktes på
+            sessionStorage.removeItem("searchTerm");
+            
+            //html för recepten
+            function FoodSection(props){
+                return(
+                    <Link to="/recipe">
                     <section id = {props.id}>
                         <h3>{props.name}</h3>
                         <img src = {props.image}/>
                     </section>
                 </Link>
-            );
-        }
+                );
+            }
+            
+            console.log(promise);
+/*
+            let component = []; 
+            for(let i = 0; i < recipesObj; i++){
+                component.push(<FoodSection key={recipesObj[i].id} id={recipesObj[i].id} name={recipesObj[i].name} image={recipesObj[i].image}/>);
+            }
+            
+            this.setState({recipesComponent: component});
+  */      
+        });
+    }
+    
+    async getRecipes(){
+        //Om sökfältet inte är tomt
+        if(sessionStorage.getItem("searchTerm") !== null){
+            let searchTerm = sessionStorage.getItem("searchTerm");
 
-        //Håller recept komponenten
-        let recipesComponent = undefined;
-        //Håller alla nya recept som skapas
-        let recipes = [];
-
-        //Skapar alla FoodSection element
-        for(let i = 0; i < this.state.newRecipes.length; i++){
-            recipes.push(<FoodSection name={this.state.newRecipes[i].name} image={this.state.newRecipes[i].image} key={this.state.newRecipes[i].id}/>);
+            await fetch("http://localhost:8080/Recipe/api/recipe/search", {
+                method: "GET",
+                mode: 'cors',
+                headers: {
+                    "SearchTerm": searchTerm
+                }
+            }).then((response) => {
+                const promise = response.json();
+                console.log(promise);
+                return promise;          
+            }).catch(err => {
+                console.error(err);
+            });
         }
-        
-        //Lägger till alla Foodsections i komponenten
-        newRecipes = (
-            <article>
-                <h2>Senaste Recept</h2>
-                {recipes}
-            </article>
-        );
-        
+    }
+
+    componentDidMount(){
+        //Kör funktionen när sidan laddas in
+        this.content();
+
+        //Sätter eventlistener på sökformuläret
+        document.getElementById("searchForm").addEventListener("submit", this.content);
+    }
+    
+    render(){      
         return(
             <main>
                 <article>
                     {this.state.searchTitle}
-                    <Link to="/recipe">
-                        <section>
-                            <h3>Recept namn</h3>
-                            <img src={food}/>
-                        </section>
-                    </Link>
-                    <Link to="/recipe">
-                        <section>
-                            <h3>Recept namn</h3>
-                            <img src={food}/>
-                        </section>
-                    </Link>
-                    <Link to="/recipe">
-                        <section>
-                            <h3>Recept namn</h3>
-                            <img src={food}/>
-                        </section>
-                    </Link>
-                    <Link to="/recipe">
-                        <section>
-                            <h3>Recept namn</h3>
-                            <img src={food}/>
-                        </section>
-                    </Link>
-                    <Link to="/recipe">
-                        <section>
-                            <h3>Recept namn</h3>
-                            <img src={food}/>
-                        </section>
-                    </Link>
-                    <Link to="/recipe">
-                        <section>
-                            <h3>Recept namn</h3>
-                            <img src={food}/>
-                        </section>
-                    </Link>                
-                </article>           
+                    {this.state.recipesComponent} 
+                </article>
             </main>
         );
     }

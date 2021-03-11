@@ -459,11 +459,12 @@ body{
                 //Kategorier
                 section:last-of-type{
                     display: grid;
-                    grid-template-columns: 1fr 1fr 1fr;
+                    grid-template-columns: 1fr 1fr;
                     column-gap: 20px;
 
                     input{
                         border-radius: 25px;
+                        background-color: white;
                     }
 
                     input:hover{
@@ -535,6 +536,10 @@ body{
                 form{
                     margin: auto;
                     max-width: 800px;
+                    
+                    section:last-of-type{
+                        grid-template-columns: 1fr 1fr 1fr;
+                    }
                 }
             }
         }

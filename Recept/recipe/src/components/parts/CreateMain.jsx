@@ -19,7 +19,9 @@ class CreateMain extends React.Component{
             createForm: "",
             ingredients: iFields,
             steps: sFields,
-            categories: []
+            categories: [],
+            ingFieldsCounter: 1,
+            stepFieldsCounter: 1
         };
 
         this.createIngredientFields = this.createIngredientFields.bind(this);
@@ -27,6 +29,7 @@ class CreateMain extends React.Component{
         this.getCategories = this.getCategories.bind(this);
         this.createRecipe = this.createRecipe.bind(this);
         this.checkFields = this.checkFields.bind(this);
+        this.changeButtonState = this.changeButtonState.bind(this);
     }
 
     /**
@@ -35,9 +38,9 @@ class CreateMain extends React.Component{
      */
     createRecipe(event){
         event.preventDefault();
-
+        
         //Error message
-        let errorMessage = document.getElementById("error");
+        let errorMessage = document.getElementById("error");        
 
         //Sträng som håller alla steg
         let steps = "";
@@ -56,7 +59,7 @@ class CreateMain extends React.Component{
             return string.charAt(0).toUpperCase() + string.slice(1);
         }
 
-        //Arrat som håller alla ingredienser
+        //Array som håller alla ingredienser
         let ingredients = [];
         //Lägger in ingredienserna
         for(let i = 0; i < this.state.createForm.ingredients.value; i++){
@@ -68,65 +71,68 @@ class CreateMain extends React.Component{
             );
         }
 
-        //Håller bilden b64
-        let image = "";
-
-        /**
-         * Hämtar bilden som lagts till och hämtar alla bytes
-         * 
-         * @returns promise med alla bytes
-         */
-        function getImage(){
-            return document.getElementById("createForm").image.files[0].arrayBuffer().then(buffer => buffer);
+        //Array som håller alla kategorier
+        let categories = [];
+        for(let i = 0; i < this.state.categories.length; i++){
+            categories.push(
+                {
+                    "name": this.state.categories[i]
+                }
+            );
         }
 
-        //Konverterar alla bytes till en base64 sträng
-        getImage().then(promise =>{
-            image = btoa(String.fromCharCode.apply(null, new Uint8Array(promise)));
+        ////Håller bilden b64
+        let image = "";
+        
+        let file = document.getElementById("createForm").image.files[0];
+        let result = "";
+        const toBase64 = file=> new Promise((reslove, reject) => {
+            const reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onload = () =>reslove(reader,result);
+            reader.onerror = error => reject(error);
         });
 
-        
+        /* När bilden är konverterad, skicka receptet till databasen */
+        toBase64(file).then(promise => {
+            let image = promise.result;
 
-        //JSON som ska skickas  till backend
-        let recipeData = {
-            "username": sessionStorage.getItem("username"),
-            "name": this.state.createForm.name.value.trim(),
-            "description": this.state.createForm.description.value.trim(),
-            "steps": steps,
-            "ingredients": ingredients,
-            "categories": this.state.categories,
-            "image": image,
-            "likes": 0
-        };
-        
-        fetch("http://localhost:8080/Recipe/api/recipe/create", {
-            method: "POST",
-            mode: 'cors',
-            headers: {
-                "Content-type": "text/plain"
-            },
-            body: JSON.stringify(recipeData)
-        }).then((response) => {
-            /* Om det inte gick att skapa receptet */
-            if(response.status === 400){
-                errorMessage.innerHTML = "Det gick inte att skapa receptet";
-            }
-                /* Om det gick att skapa receptet */
-            if(response.ok){
-                window.location.replace("/user");
-            }
-                return response.json();
-        }).catch(err => {
-            console.error(err);
+            
+            //JSON som ska skickas  till backend
+            let recipeData = {
+                "username": sessionStorage.getItem("username"),
+                "name": this.state.createForm.name.value.trim(),
+                "description": this.state.createForm.description.value.trim(),
+                "steps": steps,
+                "ingredients": ingredients,
+                "categories": categories,
+                "image": image,
+                "likes": 0
+            };
+            
+            fetch("http://localhost:8080/Recipe/api/recipe/create", {
+                method: "POST",
+                mode: 'cors',
+                headers: {
+                    "Content-type": "text/plain"
+                },
+                body: JSON.stringify(recipeData)
+            }).then((response) => {
+                /* Om det inte gick att skapa receptet */
+                if(response.status === 400){
+                    errorMessage.innerHTML = "Det gick inte att skapa receptet";
+                }
+                    /* Om det gick att skapa receptet */
+                if(response.ok){
+                    window.location.replace("/user");
+                }
+                    return response.json();
+            }).catch(err => {
+                console.error(err);
+            });
         });
     }
 
-    /*const toBase64 = file=> new Promise((reslove, reject) => {
-        const reader = new FileReader();
-        reader.readAsDataURL(file);
-        reader.onload = () =>reslove(reader,result);
-        reader.onerror = error => reject(error);
-    });*/
 
     /**
      * Skapar X antal fält för ingredienser
@@ -143,6 +149,7 @@ class CreateMain extends React.Component{
         }
         
         this.setState({ingredients : fields});
+        this.checkFields();
     }
 
     /**
@@ -160,6 +167,7 @@ class CreateMain extends React.Component{
         }
         
         this.setState({steps : fields});
+        this.checkFields();
     }
     
     /**
@@ -186,7 +194,7 @@ class CreateMain extends React.Component{
         }
 
         //Kollar ingrediens fälten
-        for(let i = 0; i < this.state.createForm.ingredients.value; i++){
+        for(let i = 0; i < this.state.ingFieldsCounter; i++){
             if(document.getElementById("ingredient"+(i+1)).value.trim() === "" || document.getElementById("amount"+(i+1)).value.trim() === ""){
                 counter++;
             }
@@ -201,7 +209,7 @@ class CreateMain extends React.Component{
         counter = 0;
 
         //Kollar steg fälten
-        for(let i = 0; i < this.state.createForm.steps.value; i++){
+        for(let i = 0; i < this.state.stepFieldsCounter; i++){
             if(document.getElementById("step"+(i+1)).value.trim() === ""){
                 counter++;
             }
@@ -212,11 +220,43 @@ class CreateMain extends React.Component{
             stepFields = EMPTY;
         }
 
+        //Kollar en bild är tillagd
         if(this.state.createForm.image.value === ""){
             image = EMPTY;
         }
-        
+
+        /* Finns det tomma fält, avaktivera knappen. Annars, aktivera den */
         if(firstFields === EMPTY || ingFields === EMPTY || stepFields === EMPTY || image === EMPTY){
+            this.changeButtonState(EMPTY);
+        }else{
+            this.changeButtonState(!EMPTY);
+        }        
+        
+        //Ökar hur många fält som finns så att fält som inte skapats ännu kollas
+        this.setState({ingFieldsCounter: this.state.createForm.ingredients.value});
+        this.setState({stepFieldsCounter: this.state.createForm.steps.value});
+    }
+
+    /**
+     * Sparar kategorierna som är valda
+     */
+    getCategories(event){
+        /* Om kategorin redan är tillagd, ta bort den och byt knapp färg till vit */
+        /* Annars läggs kategorin till och färgen byts */
+        if(this.state.categories.includes(event.target.value)){
+            //Returnerar det som tas bort, måste separeras annars så sparas bara det som tas bort
+            this.state.categories.splice(this.state.categories.indexOf(event.target.value), 1)
+
+            this.setState({categories: this.state.categories});
+            event.target.style.backgroundColor = "white";
+        }else{
+            this.setState({categories: this.state.categories.concat(event.target.value)});
+            event.target.style.backgroundColor = "tomato";
+        }
+    }
+
+    changeButtonState(empty){
+        if(empty === true){
             this.state.createForm.submitBtn.disabled = true;
             this.state.createForm.submitBtn.style.color = "gray";
             this.state.createForm.submitBtn.style.cursor = "default";
@@ -229,19 +269,7 @@ class CreateMain extends React.Component{
         }
     }
 
-    /**
-     * Sparar kategorierna som är valda
-     */
-    getCategories(event){
-        console.log("Before: " + this.state.categories);
-        //this.state.categories = this.state.categories.push(event.target.value);
-        this.setState({categories: this.state.categories.concat(event.target.value)});
-        console.log(this.state.categories);
-
-    }
-
-    componentDidMount(){
-        
+    componentDidMount(){        
         /* Om användaren inte är inloggad, skicka användaren till logga in sidan */
         if(sessionStorage.getItem("username") === null){
             window.location.replace("/login");
@@ -251,19 +279,16 @@ class CreateMain extends React.Component{
         this.state.createForm = document.getElementById("createForm");
         
         //Avaktiverar skapa recept knappen eftersom att inget är ifyllt i början
-        this.state.createForm.submitBtn.disabled = true;
-        this.state.createForm.submitBtn.style.color = "gray";
-        this.state.createForm.submitBtn.style.cursor = "default";
-        this.state.createForm.submitBtn.style.borderColor = "gray";
-
-        //Ingredients selector
-        this.state.createForm.ingredients.addEventListener("click", this.createIngredientFields);
+        this.changeButtonState(true);
 
         //Steps selector
         this.state.createForm.steps.addEventListener("click", this.createStepsFields);
 
+        //Ingredients selector
+        this.state.createForm.ingredients.addEventListener("click", this.createIngredientFields);
+
         //Input event listener
-        this.state.createForm.addEventListener("keyUp", this.checkFields);
+        this.state.createForm.addEventListener("input", this.checkFields);
     }
 
     render(){

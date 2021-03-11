@@ -18,7 +18,9 @@ class UserMain extends React.Component {
         await fetch("http://localhost:8080/Recipe/api/recipe/liked", {
             method: "GET",
             mode: 'cors',
-            headers: sessionStorage.getItem("username")
+            headers: {
+                "Username": sessionStorage.getItem("username")
+            }
         }).then((response) => {
             return response.json();
         }).then(data =>{
@@ -32,7 +34,9 @@ class UserMain extends React.Component {
         await fetch("http://localhost:8080/Recipe/api/recipe/user", {
             method: "GET",
             mode: 'cors',
-            headers: sessionStorage.getItem("username")
+            headers: {
+                "Username": sessionStorage.getItem("username")
+            }
         }).then((response) => {
             return response.json();
         }).then(data =>{
@@ -75,7 +79,7 @@ class UserMain extends React.Component {
         //Lägger till alla Foodsections i komponenten
         likedRecipes = (
             <article>
-                <h2>Senaste Recept</h2>
+                <h2>Gillade Recept</h2>
                 {recipes}
             </article>
         );
@@ -90,19 +94,22 @@ class UserMain extends React.Component {
     
         userRecipes = (
             <article>
-                <h2>Populära Recept</h2>
+                <h2>Mina Recept</h2>
                 {recipes}
             </article>
         );
 
-       return(
+        function goToCreate(event){
+            event.preventDefault();
+            window.location.replace("/create");
+        }
+
+        return(
            <main>
                 {likedRecipes}
                 {userRecipes}
-                <form>
-                    <Link to="search">
-                        <input type="submit" value="Se alla recept"/>
-                    </Link>
+                <form method="post" onSubmit={goToCreate}>
+                    <input type="submit" value="Skapa Recept"/>
                 </form>
             </main>
         );

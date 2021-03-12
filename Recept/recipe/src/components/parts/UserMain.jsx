@@ -58,11 +58,17 @@ class UserMain extends React.Component {
 
     render(){
         function FoodSection(props){
+            function saveId(){
+                sessionStorage.setItem("recipeId", props.id);
+            }
+            
             return(
-                <section id = {props.id}>
-                    <h3>{props.name}</h3>
-                    <img src = {props.image}/>
-                </section>
+                <Link to="/recipe" onClick={saveId}>
+                    <section id = {props.id}>
+                        <h3>{props.name}</h3>
+                        <img src = {props.image}/>
+                    </section>
+                </Link>
             );
         }
 
@@ -73,7 +79,7 @@ class UserMain extends React.Component {
 
         //Skapar alla FoodSection element
         for(let i = 0; i < this.state.likedRecipes.length; i++){
-            recipes.push(<FoodSection name={this.state.likedRecipes[i].name} image={this.state.likedRecipes[i].image} key={this.state.likedRecipes[i].id}/>);
+            recipes.push(<FoodSection name={this.state.likedRecipes[i].name} image={this.state.likedRecipes[i].image} key={this.state.likedRecipes[i].id} id={this.state.likedRecipes[i].id}/>);
         }
         
         //Lägger till alla Foodsections i komponenten
@@ -89,7 +95,7 @@ class UserMain extends React.Component {
         recipes = [];
 
         for(let i = 0; i < this.state.userRecipes.length; i++){
-            recipes.push(<FoodSection name={this.state.userRecipes[i].name} image={this.state.userRecipes[i].image} key={this.state.userRecipes[i].id}/>);
+            recipes.push(<FoodSection name={this.state.userRecipes[i].name} image={this.state.userRecipes[i].image} key={this.state.userRecipes[i].id} id={this.state.userRecipes[i].id}/>);
         }
     
         userRecipes = (

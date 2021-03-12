@@ -327,7 +327,8 @@ body{
                 padding: 0;
                 border-radius: 5px;
                 background-color: $primary;
-
+                cursor: pointer;
+                box-sizing: border-box;
                 //Likes
                 h3{
                     grid-area: amount;

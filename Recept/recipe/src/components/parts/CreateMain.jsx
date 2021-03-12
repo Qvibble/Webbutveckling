@@ -46,7 +46,7 @@ class CreateMain extends React.Component{
         let steps = "";
         //Lägger ihop alla steg till en sträng
         for(let i = 0; i < this.state.createForm.steps.value; i++){
-            steps += (i+1) + "." + document.getElementById("step"+(i+1)).value.trim() + "|";
+            steps += document.getElementById("step"+(i+1)).value.trim() + "|";
         }
 
         /**

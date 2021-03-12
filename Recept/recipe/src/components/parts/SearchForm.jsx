@@ -20,7 +20,7 @@ class SearchForm extends React.Component {
             let searchTerm = this.state.form.searchBar.value.trim();
             sessionStorage.setItem("searchTerm", searchTerm);
 
-            /* Om man inte redan befinner sök på sök sidan, gå dit */
+            /* Om man inte redan befinner sök på sök sidan, gå dit. Annars töms bara sökfältet*/
             if(window.location.pathname !== "/search"){
                 window.location.replace("/search");
             }else{
@@ -28,17 +28,20 @@ class SearchForm extends React.Component {
             }
         }
     }
-
     
-
+    
+    
     componentDidMount(){
         //Sätter referens till formuläret sökfältet ligger i
         this.state.form = document.getElementById("searchForm");
+        
+        //Eventlistener på submit
+        this.state.form.addEventListener("submit", this.setSearchTerm);
     }
 
     render(){
         return(
-            <form id="searchForm" method="post" onSubmit={this.setSearchTerm}>
+            <form id="searchForm" method="post">
                 <input type="text" name="searchBar" placeholder="Namn på recept..."></input>
                 <input type="submit" name="submitBtn" value="Sök"/>
             </form>

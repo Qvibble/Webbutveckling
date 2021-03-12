@@ -8,53 +8,48 @@ class SearchMain extends React.Component {
         
         this.state = {
             searchTitle: [],
-            recipesComponent: []
+            recipesComponent: [],
+            fetchData: []
         }
         
         this.content = this.content.bind(this);
         this.getRecipes = this.getRecipes.bind(this);
     }
     
+    /**
+     * Skapar innehållet på sidan
+     */
     content(){
-        console.log("content");
         //Sparar det användaren sökte på och tar bort det från session storage
         let title = [<h2 key="title">Din sökning: "{sessionStorage.getItem("searchTerm")}"</h2>];
-        console.log(sessionStorage.getItem("searchTerm"));
         this.setState({searchTitle: title});
-        
-        //Hämtar recepten från backend
-        this.getRecipes().then(promise => {
-            //Tar bort det som söktes på
-            sessionStorage.removeItem("searchTerm");
-            
-            //html för recepten
-            function FoodSection(props){
-                return(
-                    <Link to="/recipe">
+
+        //Hämter recepten
+        this.getRecipes();
+    }
+    /**
+     * Hämtar alla recept som innehåller söktermen. De recept som börjar på söktermen hamnar först
+     */
+    async getRecipes(){
+        function FoodSection(props){
+            function saveId(){
+                sessionStorage.setItem("recipeId", props.id);
+            }
+
+            return(
+                <Link to="/recipe" onClick={saveId}>
                     <section id = {props.id}>
                         <h3>{props.name}</h3>
                         <img src = {props.image}/>
                     </section>
                 </Link>
-                );
-            }
-            
-            console.log(promise);
-/*
-            let component = []; 
-            for(let i = 0; i < recipesObj; i++){
-                component.push(<FoodSection key={recipesObj[i].id} id={recipesObj[i].id} name={recipesObj[i].name} image={recipesObj[i].image}/>);
-            }
-            
-            this.setState({recipesComponent: component});
-  */      
-        });
-    }
-    
-    async getRecipes(){
-        //Om sökfältet inte är tomt
+            );
+        }
+
+        //Om sökfältet inte är tomt, hämta recept som söktes på
         if(sessionStorage.getItem("searchTerm") !== null){
             let searchTerm = sessionStorage.getItem("searchTerm");
+            sessionStorage.removeItem("searchTerm");
 
             await fetch("http://localhost:8080/Recipe/api/recipe/search", {
                 method: "GET",
@@ -62,10 +57,16 @@ class SearchMain extends React.Component {
                 headers: {
                     "SearchTerm": searchTerm
                 }
-            }).then((response) => {
-                const promise = response.json();
-                console.log(promise);
-                return promise;          
+            }).then((response) => {            
+                return response.json();          
+            }).then(data => {
+                let recipesObj = data;
+                let component = []; 
+                for(let i = 0; i < recipesObj.length; i++){
+                    component.push(<FoodSection key={recipesObj[i].id} id={recipesObj[i].id} name={recipesObj[i].name} image={recipesObj[i].image}/>);
+                }
+        
+                this.setState({recipesComponent: component});
             }).catch(err => {
                 console.error(err);
             });

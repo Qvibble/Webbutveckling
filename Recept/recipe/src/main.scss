@@ -295,14 +295,52 @@ body{
         main{
             display: grid;
             grid-template-areas: 
+                "buttons buttons"
                 "name likes"
                 "image image"
                 "ingtitle ingtitle"
                 "ingredients ingredients"
                 "steptitle steptitle"
-                "steps steps";
+                "steps steps"
+                "comments comments";
             grid-template-columns: 1fr auto;
             row-gap: 0;
+
+            //Håller knapparna
+            div{
+                grid-area: buttons;
+
+                display: grid;
+                grid-template-areas: 
+                    "edit remove";
+                grid-template-columns: 1fr 1fr;
+                margin-bottom: 20px;
+                column-gap: 10px;
+
+                //Stil för båda knapparna
+                button{
+                    background-color: white;
+                    border: 2px solid $primary;
+                    font-family: $largerText;
+                    font-size: 1.2em;
+                    line-height: 2em;
+                }
+
+                button:hover{
+                    background-color: $secondary;
+                    cursor: pointer;
+                }
+    
+                //Ändra recept knappen
+                button:first-of-type{
+                    grid-area: edit;
+                }
+    
+                //Ta bort recept knappen
+                button:last-of-type{
+                    grid-area: remove;
+                }
+            }
 
             //Recept namn
             h1{
@@ -314,7 +352,7 @@ body{
             }
 
             //Likes & hjärt ikon
-            section{
+            section:first-of-type{
                 grid-area: likes;
 
                 display: grid;
@@ -347,6 +385,97 @@ body{
                     height: 55px;
                     margin-left: 5px;
                     margin-right: 5px;
+                }
+            }
+
+            //Kommentarer
+            section:last-of-type{
+                grid-area: comments;
+                display: grid;
+                grid-template-areas: 
+                    "title"
+                    "form"
+                    "comments";
+                row-gap: 10px;
+
+                h2{
+                    grid-area: title;
+                    margin-bottom: 0;
+                }
+
+                //Skapa kommentar
+                form{
+                    grid-area: form;
+
+                    fieldset{
+                        legend{
+                            font-family: $largerText;
+                        }
+
+                        label{
+                            font-family: $smallerText;
+                        }
+
+                        textarea{
+                            resize: none;
+                            box-sizing: border-box;
+                            width: 100%;
+                            padding: 10px;
+                            border: 1px solid black;
+                            font-family: $smallerText;
+                            font-size: 1.2em;
+                        }
+                    }                    
+                }
+
+                //Håller kommentarerna
+                section{
+                    grid-area: comments;
+
+                    display: grid;
+                    grid-template-columns: 1fr;
+                    row-gap: 10px;
+                    height: auto;
+                    background-color: white;
+
+                    //Receptets kommentarer
+                    section{      
+                        grid-area: unset;
+                        
+                        display: grid;
+                        grid-template-areas: 
+                            "user user"
+                            "content content"
+                            "none date";
+                        grid-template-columns: 1fr auto;
+                        row-gap: 0;
+    
+                        height: auto;
+                        background-color: white;
+                        border: 5px solid $primary;
+                        padding: 10px;
+                        box-sizing: border-box;
+    
+                        h3{
+                            grid-area: user;
+                            
+                            padding: 0;
+                            color: black;
+                            line-height: 20px;
+                        }
+    
+                        p:first-of-type{
+                            grid-area: content;
+    
+                            font-family: $smallerText;
+                        }
+    
+                        p:last-of-type{
+                            grid-area: date;
+    
+                            font-family: $smallerText;
+                        }
+                    }
                 }
             }
 
@@ -430,7 +559,6 @@ body{
                     box-sizing: border-box;
                     width: 100%;
                     padding: 10px;
-                    box-sizing: border-box;
                     border: 1px solid black;
                     font-family: $smallerText;
                     font-size: 1.2em;

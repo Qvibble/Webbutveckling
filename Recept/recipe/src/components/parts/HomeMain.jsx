@@ -106,11 +106,6 @@ class HomeMain extends React.Component{
            <main>
                 {newRecipes}
                 {popularRecipes}
-                <form>
-                    <Link to="search">
-                        <input type="submit" value="Se alla recept"/>
-                    </Link>
-                </form>
             </main>
         );
     }

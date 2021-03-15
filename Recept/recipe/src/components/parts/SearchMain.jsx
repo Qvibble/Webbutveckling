@@ -21,8 +21,10 @@ class SearchMain extends React.Component {
      */
     content(){
         let title = [];
+        
         //Ändrar titeln på sök sidan
         if(sessionStorage.getItem("category") !== null){
+            console.log("get category");
             title = [<h2 key="title">Din kategori sökning: "{sessionStorage.getItem("category")}"</h2>];            
         }else{            
             title = [<h2 key="title">Din sökning: "{sessionStorage.getItem("searchTerm")}"</h2>];
@@ -115,7 +117,7 @@ class SearchMain extends React.Component {
         let liElements = document.querySelector("ul").lastChild.childNodes;
 
         for(let i = 0; i < liElements.length; i++){
-            liElements[i].addEventListener("click", this.content);
+            liElements[i].addEventListener("click", this.content, false);
         }
     }
     

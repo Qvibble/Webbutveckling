@@ -133,6 +133,107 @@ class CreateMain extends React.Component{
         });
     }
 
+    /**
+     * Ändrar recepter i databasen
+     * @param {*} event 
+     */
+    editRecipe(event){
+        event.preventDefault();
+        
+        //Error message
+        let errorMessage = document.getElementById("error");        
+
+        //Sträng som håller alla steg
+        let steps = "";
+        //Lägger ihop alla steg till en sträng
+        for(let i = 0; i < this.state.createForm.steps.value; i++){
+            steps += document.getElementById("step"+(i+1)).value.trim() + "|";
+        }
+
+        /**
+         * Gör första bokstaven stor
+         * 
+         * @param {*} string 
+         * @returns 
+         */
+        function firstLetterUpperCase(string){
+            return string.charAt(0).toUpperCase() + string.slice(1);
+        }
+
+        //Array som håller alla ingredienser
+        let ingredients = [];
+        //Lägger in ingredienserna
+        for(let i = 0; i < this.state.createForm.ingredients.value; i++){
+            ingredients.push(
+                {
+                    "name": firstLetterUpperCase(document.getElementById("ingredient"+(i+1)).value.trim()),
+                    "amount": document.getElementById("amount"+(i+1)).value.trim()
+                }
+            );
+        }
+
+        //Array som håller alla kategorier
+        let categories = [];
+        for(let i = 0; i < this.state.categories.length; i++){
+            categories.push(
+                {
+                    "name": this.state.categories[i]
+                }
+            );
+        }
+
+        ////Håller bilden b64
+        let image = "";
+        
+        let file = document.getElementById("createForm").image.files[0];
+        let result = "";
+        const toBase64 = file=> new Promise((reslove, reject) => {
+            const reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onload = () =>reslove(reader,result);
+            reader.onerror = error => reject(error);
+        });
+
+        /* När bilden är konverterad, skicka receptet till databasen */
+        toBase64(file).then(promise => {
+            let image = promise.result;
+
+            
+            //JSON som ska skickas  till backend
+            let recipeData = {
+                "username": sessionStorage.getItem("username"),
+                "name": this.state.createForm.name.value.trim(),
+                "description": this.state.createForm.description.value.trim(),
+                "steps": steps,
+                "ingredients": ingredients,
+                "categories": categories,
+                "image": image,
+                "likes": 0
+            };
+            
+            fetch("http://localhost:8080/Recipe/api/recipe/edit", {
+                method: "PUT",
+                mode: 'cors',
+                headers: {
+                    "Content-type": "text/plain"
+                },
+                body: JSON.stringify(recipeData)
+            }).then((response) => {
+                /* Om det inte gick att ändra receptet */
+                if(response.status === 400){
+                    errorMessage.innerHTML = "Det gick inte att ändra receptet";
+                }
+                    /* Om det gick att ändra receptet */
+                if(response.ok){
+                    window.location.replace("/user");
+                }
+                    return response.json();
+            }).catch(err => {
+                console.error(err);
+            });
+        });
+    }
+
 
     /**
      * Skapar X antal fält för ingredienser
@@ -253,6 +354,8 @@ class CreateMain extends React.Component{
             this.setState({categories: this.state.categories.concat(event.target.value)});
             event.target.style.backgroundColor = "tomato";
         }
+
+        console.log(this.state.categories);
     }
 
     changeButtonState(empty){
@@ -278,24 +381,82 @@ class CreateMain extends React.Component{
         //Referens till formuläret
         this.state.createForm = document.getElementById("createForm");
         
-        //Avaktiverar skapa recept knappen eftersom att inget är ifyllt i början
-        this.changeButtonState(true);
+        //Om det inte finns ett recept som ska ändras
+        if(sessionStorage.getItem("editRecipe") === null){
+            //Avaktiverar skapa recept knappen eftersom att inget är ifyllt i början
+            this.changeButtonState(true);
+    
+            //Steps selector
+            this.state.createForm.steps.addEventListener("click", this.createStepsFields);
+    
+            //Ingredients selector
+            this.state.createForm.ingredients.addEventListener("click", this.createIngredientFields);
+    
+            //Input event listener
+            this.state.createForm.addEventListener("input", this.checkFields);
+        }else{
+            let recipeData = JSON.parse(sessionStorage.getItem("editRecipe"));
 
-        //Steps selector
-        this.state.createForm.steps.addEventListener("click", this.createStepsFields);
+            //Ändrar titel
+            document.querySelector("h1").innerHTML = "Ändra recept";
+            //Ändrar det som står på submit knappen
+            this.state.createForm.submitBtn.value = "Ändra recept";
 
-        //Ingredients selector
-        this.state.createForm.ingredients.addEventListener("click", this.createIngredientFields);
+            //Namn
+            this.state.createForm.name.value = recipeData.name;
 
-        //Input event listener
-        this.state.createForm.addEventListener("input", this.checkFields);
+            //Beskrivning
+            this.state.createForm.description.value = recipeData.description;
+
+            //Ingredienser
+            //Skapar input fälten
+            this.state.createForm.ingredients.value = recipeData.ingredients.length;
+            this.createIngredientFields();
+
+            //Fyller fälten
+            for(let i = 1; i <= recipeData.ingredients.length; i++){
+                document.getElementById("ingredient"+i).value = recipeData.ingredients[i-1].name;
+                document.getElementById("amount"+i).value = recipeData.ingredients[i-1].amount;
+            }
+
+            //Steg
+            //Håller stegen
+            let steps = recipeData.steps.split("|");
+            //Tar bort det tomma fältet i arrayen
+            steps.pop();
+            
+            //Skapar input fälten
+            this.state.createForm.steps.value = steps.length;
+            this.createStepsFields();
+
+            //Fyller fälten
+            for(let i = 0; i < steps.length; i++){
+                this.state.createForm.step1.value = steps[i];
+            }
+
+            //Kategorier
+            console.log(recipeData.categories);
+            for(let i = 0; i < recipeData.categories.length; i++){
+                this.state.categories = this.state.categories.concat(recipeData.categories[i].name);
+            }
+        }
     }
 
     render(){
+        //Referens till vilken funktion som ska köras vid submit
+        let onSubmitFunction = "";
+
+        //Om de tinte finns ett recept som ska ändras
+        if(sessionStorage.getItem("editRecipe") === null){
+            onSubmitFunction = this.createRecipe;
+        }else{
+            onSubmitFunction = this.editRecipe;
+        }
+
         return(
             <main>
                 <h1>Skapa Recept</h1>
-                <form action="/user" id="createForm" onSubmit={this.createRecipe}>
+                <form action="/user" id="createForm" onSubmit={onSubmitFunction}>
                     <label htmlFor="name">Namn</label>
                     <input type="text" id="name" name="name"/>
                     
@@ -353,15 +514,15 @@ class CreateMain extends React.Component{
     
                     <label htmlFor="categories">Kategorier</label>
                     <section id="categories">
-                        <input type="button" name="" value="Nöt" onClick={this.getCategories}/>
-                        <input type="button" name="" value="Fläsk" onClick={this.getCategories}/>
-                        <input type="button" name="" value="Kyckling" onClick={this.getCategories}/>
-                        <input type="button" name="" value="Fisk" onClick={this.getCategories}/>
-                        <input type="button" name="" value="Vegetariskt" onClick={this.getCategories}/>
-                        <input type="button" name="" value="Veganskt" onClick={this.getCategories}/>
-                        <input type="button" name="" value="Förrätt" onClick={this.getCategories}/>
-                        <input type="button" name="" value="Varmrätt" onClick={this.getCategories}/>
-                        <input type="button" name="" value="Efterrätt" onClick={this.getCategories}/>
+                        <input type="button" name="nöt" value="Nöt" onClick={this.getCategories}/>
+                        <input type="button" name="fläsk" value="Fläsk" onClick={this.getCategories}/>
+                        <input type="button" name="kyckling" value="Kyckling" onClick={this.getCategories}/>
+                        <input type="button" name="fisk" value="Fisk" onClick={this.getCategories}/>
+                        <input type="button" name="vegetariskt" value="Vegetariskt" onClick={this.getCategories}/>
+                        <input type="button" name="veganskt" value="Veganskt" onClick={this.getCategories}/>
+                        <input type="button" name="förrätt" value="Förrätt" onClick={this.getCategories}/>
+                        <input type="button" name="varmrätt" value="Varmrätt" onClick={this.getCategories}/>
+                        <input type="button" name="efterrätt" value="Efterrätt" onClick={this.getCategories}/>
                     </section>
 
                     <label htmlFor="image">Bild</label>

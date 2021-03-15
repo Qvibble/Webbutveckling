@@ -54,7 +54,7 @@ class Header extends React.Component {
         function goToUser(event){
             event.preventDefault();
 
-            window.location.replace("/user")
+            window.location.replace("/user");
         }
 
         return(

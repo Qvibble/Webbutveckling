@@ -19,6 +19,8 @@ class RecipeMain extends React.Component {
         this.recipeContent = this.recipeContent.bind(this);
         this.likeRecipe = this.likeRecipe.bind(this);
         this.commentContent = this.commentContent.bind(this);
+        this.getComments = this.getComments.bind(this);
+        this.a = this.a.bind(this);
     }
 
     /**
@@ -72,7 +74,7 @@ class RecipeMain extends React.Component {
     }
     
     /**
-     * Hämtar ett recept utifrån ett id
+     * Hämtar ett recept utifrån ett id + användarnamn
      */
     async getRecipe(){
         //Finns inga användare med bara en bokstav
@@ -109,7 +111,6 @@ class RecipeMain extends React.Component {
         //Om man är inloggad
         if(sessionStorage.getItem("username") !== null && sessionStorage.getItem("recipeId") !== null){
             //Om användaren redan gillar receptet, ta bort like, annars så läggs det till
-            console.log(this.state.fetchData[0].liked);
             if(this.state.fetchData[0].liked === false){
                 fetch("http://localhost:8080/Recipe/api/recipe/like", {
                 method: "POST",
@@ -136,7 +137,21 @@ class RecipeMain extends React.Component {
                     console.error(err);
                 });
             }
-            this.setState({test: "a"});
+
+            fetch("http://localhost:8080/Recipe/api/recipe/get", {
+                method: "GET",
+                mode: 'cors',
+                headers: {
+                    "IdUsername": sessionStorage.getItem("recipeId") + "|" + sessionStorage.getItem("username")
+                }
+            }).then((response) => {     
+                return response.json();          
+            }).then(data => {
+                this.setState({fetchData: data});             
+                this.recipeContent();
+            }).catch(err => {
+                console.error(err);
+            });
         }else{
             alert("Logga in först");
         }
@@ -170,7 +185,7 @@ class RecipeMain extends React.Component {
                     username: sessionStorage.getItem("username"),
                     content: formElem.text.value
                 };
-                
+                console.log("Save comment");
                 fetch("http://localhost:8080/Recipe/api/comments/save", {
                     method: "POST",
                     mode: 'cors',
@@ -224,7 +239,7 @@ class RecipeMain extends React.Component {
                 cursor: "default",
                 borderColor: "gray"
             }
-
+            
             form =
             <form onSubmit={createComment} onInput={checkField} id="commentForm">
                 <fieldset>
@@ -232,18 +247,18 @@ class RecipeMain extends React.Component {
                     <label htmlFor="text">Innehåll</label>
                     <textarea rows="8" id="text" name="text"></textarea>
                     <p id="error"></p>
-                    <input type="submit" name="submitBtn" value="Skapa kommentar" style={btnStyle} onClick={this.getComments}/>
+                    <input type="submit" name="submitBtn" value="Skapa kommentar" style={btnStyle} onClick={this.a}/>
                 </fieldset>
             </form>;
         }
-
+        
         //Håller kommentarerna
         let comments = <p style={{textAlign: "center"}}>Inga Kommentarer</p>;
-
+        
         //Om det finns kommentarer
         if(this.state.commentData.length > 0){
             comments = [];
-
+            
             for(let i = 0; i < this.state.commentData.length; i++){
                 comments.push(
                     <section key={"c"+i+1}>
@@ -254,7 +269,7 @@ class RecipeMain extends React.Component {
                 );
             }
         }
-
+        console.log("Set State");
         this.setState({commentContent: 
             <section>
                 <h2>Kommentarer</h2>
@@ -263,9 +278,11 @@ class RecipeMain extends React.Component {
                     {comments}
                 </section>
             </section>
-        })
-    }
+        });
 
+        console.log(comments);
+    }
+    
     /**
      * Hämtar kommentarerna från databasen
      */
@@ -280,11 +297,21 @@ class RecipeMain extends React.Component {
             }).then((response) => {    
                 return response.json();          
             }).then(data => {
-                this.setState({commentData: data});
+                console.log("Data: " + data.length);
+                this.setState({commentData: data});                    
             }).catch(err => {
                 console.error(err);
             });
+            
+            
         }
+    }
+
+    a(){
+        this.getComments().then(() => {
+
+            this.commentContent();
+        });
     }
     
     componentDidMount(){
@@ -292,32 +319,45 @@ class RecipeMain extends React.Component {
         this.getRecipe().then(() =>{
             //Om man är inloggad och den som är inloggad är den som skapat receptet
             if(sessionStorage.getItem("username") !== null && sessionStorage.getItem("username") === this.state.fetchData[0].username){
+                //Håller receptets fetch data
+                let recipeData = this.state.fetchData[0];
+                
+                /**
+                 * Sparar det valda receptet och skickar användaren till sidan där de kan redigera sitt recept
+                 */
                 function editRecipe(){
-
+                    sessionStorage.setItem("editRecipe", JSON.stringify(recipeData));
+                    window.location.replace("/create");
                 }
 
+                /**
+                 * Tar bort det valda receptet
+                 */
                 function removeRecipe(){
-                fetch("http://localhost:8080/Recipe/api/recipe/delete", {
-                method: "DELETE",
-                mode: 'cors',
-                headers: {
-                    "RecipeId": sessionStorage.getItem("recipeId")
-                },
-                }).then((response) => {
-                    if(response.ok){
-                        alert("Recept borttaget");
-                        sessionStorage.removeItem("recipeId");
-                        window.location.replace("/");
-                    }
-                    return response.json();
-                }).catch(err => {
-                    console.error(err);
-                });
+                    fetch("http://localhost:8080/Recipe/api/recipe/delete", {
+                    method: "DELETE",
+                    mode: 'cors',
+                    headers: {
+                        "RecipeId": sessionStorage.getItem("recipeId")
+                    },
+                    }).then((response) => {
+                        if(response.ok){
+                            alert("Recept borttaget");
+                            sessionStorage.removeItem("recipeId");
+                            window.location.replace("/");
+                        }
+                        return response.json();
+                    }).catch(err => {
+                        console.error(err);
+                    });
                 }
                 
+                /**
+                 * Sätter knapparnas innehåll
+                 */
                 this.setState({creatorButtons: 
                     <div>
-                        <button>Ändra receptet</button>
+                        <button onClick={editRecipe}>Ändra receptet</button>
                         <button onClick={removeRecipe}>Ta bort receptet</button>
                     </div>
                 });

@@ -24,6 +24,8 @@ class CreateMain extends React.Component{
             stepFieldsCounter: 1
         };
 
+        this.renderCounter = 0;
+
         this.createIngredientFields = this.createIngredientFields.bind(this);
         this.createStepsFields = this.createStepsFields.bind(this);
         this.getCategories = this.getCategories.bind(this);
@@ -201,6 +203,7 @@ class CreateMain extends React.Component{
             
             //JSON som ska skickas  till backend
             let recipeData = {
+                "id": sessionStorage.getItem("recipeId"),
                 "username": sessionStorage.getItem("username"),
                 "name": this.state.createForm.name.value.trim(),
                 "description": this.state.createForm.description.value.trim(),
@@ -244,9 +247,18 @@ class CreateMain extends React.Component{
         //Håller objekten som ska skapas
         let fields = [];
 
-        for(let i = 0; i < amountOfFields; i++){
-            fields.push(<input type="text" id={"ingredient"+(i+1)} name={"ingredient"+(i+1)} key={"ingredient"+(i+1)}/>);
-            fields.push(<input type="text" id={"amount"+(i+1)} name={"amount"+(i+1)} key={"amount"+(i+1)}/>);
+        if(sessionStorage.getItem("editRecipe") !== null){
+            let recipeData = JSON.parse(sessionStorage.getItem("editRecipe"));
+
+            for(let i = 0; i < amountOfFields; i++){
+                fields.push(<input type="text" id={"ingredient"+(i+1)} name={"ingredient"+(i+1)} key={"ingredient"+(i+1)} defaultValue={recipeData.ingredients[i].name}/>);
+                fields.push(<input type="text" id={"amount"+(i+1)} name={"amount"+(i+1)} key={"amount"+(i+1)} defaultValue={recipeData.ingredients[i].amount}/>);
+            }
+        }else{
+            for(let i = 0; i < amountOfFields; i++){
+                fields.push(<input type="text" id={"ingredient"+(i+1)} name={"ingredient"+(i+1)} key={"ingredient"+(i+1)}/>);
+                fields.push(<input type="text" id={"amount"+(i+1)} name={"amount"+(i+1)} key={"amount"+(i+1)}/>);
+            }
         }
         
         this.setState({ingredients : fields});
@@ -262,9 +274,23 @@ class CreateMain extends React.Component{
         //Håller objekten som ska skapas
         let fields = [];
 
-        for(let i = 0; i < amountOfFields; i++){
-            fields.push(<label htmlFor={"step"+(i+1)} key={"nr"+(i+1)}>{(i+1)}.</label>);
-            fields.push(<textarea id={"step"+(i+1)} name={"step"+(i+1)} rows="3" key={"step"+(i+1)}></textarea>);
+        /* Om man vill ändra ett recept så skapas fält med recept informationen annars skapas tomma fält */
+        if(sessionStorage.getItem("editRecipe") !== null){
+            let recipeData = JSON.parse(sessionStorage.getItem("editRecipe"));
+            //Håller stegen
+            let steps = recipeData.steps.split("|");
+            //Tar bort det tomma fältet i arrayen
+            steps.pop();         
+
+            for(let i = 0; i < amountOfFields; i++){
+                fields.push(<label htmlFor={"step"+(i+1)} key={"nr"+(i+1)}>{(i+1)}.</label>);
+                fields.push(<textarea id={"step"+(i+1)} name={"step"+(i+1)} rows="3" key={"step"+(i+1)} defaultValue={steps[i]}></textarea>);
+            }
+        }else{
+            for(let i = 0; i < amountOfFields; i++){
+                fields.push(<label htmlFor={"step"+(i+1)} key={"nr"+(i+1)}>{(i+1)}.</label>);
+                fields.push(<textarea id={"step"+(i+1)} name={"step"+(i+1)} rows="3" key={"step"+(i+1)}></textarea>);
+            }
         }
         
         this.setState({steps : fields});
@@ -354,7 +380,7 @@ class CreateMain extends React.Component{
             this.setState({categories: this.state.categories.concat(event.target.value)});
             event.target.style.backgroundColor = "tomato";
         }
-
+ 
         console.log(this.state.categories);
     }
 
@@ -377,80 +403,87 @@ class CreateMain extends React.Component{
         if(sessionStorage.getItem("username") === null){
             window.location.replace("/login");
         }
-        
+
         //Referens till formuläret
         this.state.createForm = document.getElementById("createForm");
-        
-        //Om det inte finns ett recept som ska ändras
-        if(sessionStorage.getItem("editRecipe") === null){
-            //Avaktiverar skapa recept knappen eftersom att inget är ifyllt i början
-            this.changeButtonState(true);
-    
-            //Steps selector
-            this.state.createForm.steps.addEventListener("click", this.createStepsFields);
-    
-            //Ingredients selector
-            this.state.createForm.ingredients.addEventListener("click", this.createIngredientFields);
-    
-            //Input event listener
-            this.state.createForm.addEventListener("input", this.checkFields);
-        }else{
+       //Om det inte finns ett recept som ska ändras
+       //Avaktiverar skapa recept knappen eftersom att inget är ifyllt i början
+       this.changeButtonState(true);
+       //Steps selector
+       this.state.createForm.steps.addEventListener("click", this.createStepsFields);
+       //Ingredients selector
+       this.state.createForm.ingredients.addEventListener("click", this.createIngredientFields);
+       //Input event listener
+       this.state.createForm.addEventListener("input", this.checkFields);
+       
+        if(sessionStorage.getItem("editRecipe") !== null){
             let recipeData = JSON.parse(sessionStorage.getItem("editRecipe"));
-
             //Ändrar titel
             document.querySelector("h1").innerHTML = "Ändra recept";
-            //Ändrar det som står på submit knappen
-            this.state.createForm.submitBtn.value = "Ändra recept";
-
             //Namn
             this.state.createForm.name.value = recipeData.name;
-
             //Beskrivning
             this.state.createForm.description.value = recipeData.description;
+            
+            console.log(this.state.createForm.submitBtn.value);
+            this.state.createForm.submitBtn.value = "Ändra receptet";
+            console.log(this.state.createForm.submitBtn.value);
+            console.log(this.state.createForm);
+            console.log(this.state.createForm.submitBtn.value);
 
             //Ingredienser
             //Skapar input fälten
             this.state.createForm.ingredients.value = recipeData.ingredients.length;
+            //Fyller fälten
             this.createIngredientFields();
 
-            //Fyller fälten
-            for(let i = 1; i <= recipeData.ingredients.length; i++){
-                document.getElementById("ingredient"+i).value = recipeData.ingredients[i-1].name;
-                document.getElementById("amount"+i).value = recipeData.ingredients[i-1].amount;
-            }
-
-            //Steg
-            //Håller stegen
+            //Steg            
             let steps = recipeData.steps.split("|");
             //Tar bort det tomma fältet i arrayen
-            steps.pop();
-            
-            //Skapar input fälten
+            steps.pop();       
+            ////Skapar input fälten
             this.state.createForm.steps.value = steps.length;
             this.createStepsFields();
-
-            //Fyller fälten
-            for(let i = 0; i < steps.length; i++){
-                this.state.createForm.step1.value = steps[i];
+            
+            /**
+             * Gör första bokstaven stor
+             * 
+             * @param {*} string 
+             * @returns 
+             */
+            function firstLetterUpperCase(string){
+                return string.charAt(0).toUpperCase() + string.slice(1);
             }
 
-            //Kategorier
+           //Kategorier
             console.log(recipeData.categories);
             for(let i = 0; i < recipeData.categories.length; i++){
-                this.state.categories = this.state.categories.concat(recipeData.categories[i].name);
+                this.state.categories = this.state.categories.concat(firstLetterUpperCase(recipeData.categories[i].name));
+                this.state.createForm[recipeData.categories[i].name].style.backgroundColor = "tomato";
             }
         }
     }
 
     render(){
-        //Referens till vilken funktion som ska köras vid submit
-        let onSubmitFunction = "";
+        //Render counter börjar på 0
+        //Ökas med 1 varje gång render körs
+        //Fråga mig inte om -1, fråga David
+        //Behövs inte men är för konstig för att ta bort
+        //if(this.renderCounter > 1){
+        //    this.renderCounter--;
+        //}
+        //this.renderCounter++;
 
-        //Om de tinte finns ett recept som ska ändras
+        let btnValue = "";
+        ////Referens till vilken funktion som ska köras vid submit
+        let onSubmitFunction = "";
+        //Om det inte finns ett recept som ska ändras
         if(sessionStorage.getItem("editRecipe") === null){
             onSubmitFunction = this.createRecipe;
+            btnValue = "Skapa receptet";
         }else{
             onSubmitFunction = this.editRecipe;
+            btnValue = "Ändra receptet";
         }
 
         return(
@@ -485,7 +518,7 @@ class CreateMain extends React.Component{
                         <label>Mängd</label>
                     </span>
     
-                    <section>
+                    <section id="test" name="test">
                         {this.state.ingredients}
                     </section>
     
@@ -528,7 +561,7 @@ class CreateMain extends React.Component{
                     <label htmlFor="image">Bild</label>
                     <input type="file" name="image" id="image" />
                     <p id="error"></p>
-                    <input type="submit" name="submitBtn" value="Skapa receptet"/>
+                    <input type="submit" name="submitBtn" value={btnValue}/>
                 </form>
             </main>
         );

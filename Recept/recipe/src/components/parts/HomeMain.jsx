@@ -86,7 +86,7 @@ class HomeMain extends React.Component{
                 </article>
             );
             recipes = [];
-    
+            console.log(this.state.popularRecipes);
             for(let i = 0; i < this.state.popularRecipes.length; i++){
                 recipes.push(<FoodSection name={this.state.popularRecipes[i].name} image={this.state.popularRecipes[i].image} key={this.state.popularRecipes[i].id} id={this.state.newRecipes[i].id}/>);
             }

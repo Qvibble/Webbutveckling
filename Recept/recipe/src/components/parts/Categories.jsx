@@ -12,7 +12,6 @@ class Categories extends React.Component {
         event.preventDefault();
 
         //Håller vilken kategori man klickat på
-        console.log("Set category");
         sessionStorage.setItem("category", event.target.innerHTML);
 
         /* Om man inte redan befinner sök på sök sidan, gå dit. Annars töms bara sökfältet*/
@@ -26,7 +25,7 @@ class Categories extends React.Component {
             <ul>
                 <li>Kategorier</li>
                 <Link to="/search">
-                    <li onClick={this.setCategory,true}>Nöt</li>
+                    <li onClick={this.setCategory}>Nöt</li>
                     <li onClick={this.setCategory}>Fläsk</li>
                     <li onClick={this.setCategory}>Kyckling</li>
                     <li onClick={this.setCategory}>Fisk</li>

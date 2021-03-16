@@ -200,6 +200,11 @@ class RecipeMain extends React.Component {
                     }else{
                         errorMessage.innerHTML = "";
                         formElem.text.value = "";
+                        //Stänger av knappen igen när den klickats på så att man inte kan skapa tomma kommentarer
+                        formElem.submitBtn.disabled = true;
+                        formElem.submitBtn.style.color = "gray";
+                        formElem.submitBtn.style.cursor = "default";
+                        formElem.submitBtn.style.borderColor = "gray";
                     }
                     
                     return response.json();
@@ -269,7 +274,7 @@ class RecipeMain extends React.Component {
                 );
             }
         }
-        console.log("Set State");
+
         this.setState({commentContent: 
             <section>
                 <h2>Kommentarer</h2>
@@ -279,8 +284,6 @@ class RecipeMain extends React.Component {
                 </section>
             </section>
         });
-
-        console.log(comments);
     }
     
     /**
@@ -297,7 +300,6 @@ class RecipeMain extends React.Component {
             }).then((response) => {    
                 return response.json();          
             }).then(data => {
-                console.log("Data: " + data.length);
                 this.setState({commentData: data});                    
             }).catch(err => {
                 console.error(err);

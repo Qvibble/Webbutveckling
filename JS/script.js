@@ -1,10 +1,10 @@
-let name = ["Om Mig", "Uppgift 4", "Uppgift 5", "Uppgift 6"];
+let names = ["Om Mig", "Uppgift 4", "Uppgift 5", "Uppgift 6", "Uppgift 8", "Uppgift 9"];
 
 window.onload = createElements;
 
 function createElements(){
-    for(let i = 0; i < name.length; i++){
-        createNavBtn(name[i], i);
+    for(let i = 0; i < names.length; i++){
+        createNavBtn(names[i], i);
     }
 }
 

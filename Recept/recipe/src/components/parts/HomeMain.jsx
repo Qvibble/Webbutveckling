@@ -54,7 +54,7 @@ class HomeMain extends React.Component{
         let popularRecipes = undefined;
 
         //Om fetchen gått igenom
-        if(this.state.newRecipes !== "" || this.state.popularRecipes !== ""){
+        if(this.state.newRecipes !== "" && this.state.popularRecipes !== ""){
             function FoodSection(props){
                 function saveId(){
                     sessionStorage.setItem("recipeId", props.id);
@@ -64,7 +64,7 @@ class HomeMain extends React.Component{
                     <Link to="/recipe" onClick={saveId}>
                         <section id = {props.id}>
                             <h3>{props.name}</h3>
-                            <img src = {props.image}/>
+                            <img src = {"data:image/png;base64," + props.image}/>
                         </section>
                     </Link>
                 );
@@ -86,9 +86,8 @@ class HomeMain extends React.Component{
                 </article>
             );
             recipes = [];
-            console.log(this.state.popularRecipes);
             for(let i = 0; i < this.state.popularRecipes.length; i++){
-                recipes.push(<FoodSection name={this.state.popularRecipes[i].name} image={this.state.popularRecipes[i].image} key={this.state.popularRecipes[i].id} id={this.state.newRecipes[i].id}/>);
+                recipes.push(<FoodSection name={this.state.popularRecipes[i].name} image={this.state.popularRecipes[i].image} key={this.state.popularRecipes[i].id} id={this.state.popularRecipes[i].id}/>);
             }
         
             popularRecipes = (
@@ -98,8 +97,8 @@ class HomeMain extends React.Component{
                 </article>
             );
         }else{
-            newRecipes = <h2>Senaste Recept</h2>;
-            popularRecipes = <h2>Populära Recept</h2>;
+            newRecipes = <article><h2>Senaste Recept</h2></article>;
+            popularRecipes = <article><h2>Populära Recept</h2></article>;
         }
 
        return(

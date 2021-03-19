@@ -16,7 +16,7 @@ class SearchForm extends React.Component {
         event.preventDefault();
 
         //Sparar det som söks på i session storage
-        if(this.state.form.searchBar.value !== ""){
+        if(this.state.form.searchBar.value.trim() !== ""){
             let searchTerm = this.state.form.searchBar.value.trim();
             sessionStorage.setItem("searchTerm", searchTerm);
 

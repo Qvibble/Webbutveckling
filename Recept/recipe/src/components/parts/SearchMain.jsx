@@ -8,8 +8,7 @@ class SearchMain extends React.Component {
         
         this.state = {
             searchTitle: [],
-            recipesComponent: [],
-            fetchData: []
+            recipesComponent: []
         }
         
         this.content = this.content.bind(this);
@@ -24,7 +23,6 @@ class SearchMain extends React.Component {
         
         //Ändrar titeln på sök sidan
         if(sessionStorage.getItem("category") !== null){
-            console.log("get category");
             title = [<h2 key="title">Din kategori sökning: "{sessionStorage.getItem("category")}"</h2>];            
         }else{            
             title = [<h2 key="title">Din sökning: "{sessionStorage.getItem("searchTerm")}"</h2>];
@@ -47,7 +45,7 @@ class SearchMain extends React.Component {
                 <Link to="/recipe" onClick={saveId}>
                     <section id = {props.id}>
                         <h3>{props.name}</h3>
-                        <img src = {props.image}/>
+                        <img src = {"data:image/png;base64," + props.image}/>
                     </section>
                 </Link>
             );

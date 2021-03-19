@@ -5,6 +5,10 @@ class Categories extends React.Component {
     constructor(props){
         super(props);
 
+        this.state = {
+            liElements: []
+        }
+
         this.setCategory = this.setCategory.bind(this);
     }
 
@@ -20,20 +24,33 @@ class Categories extends React.Component {
         }
     }
 
+    componentDidMount(){
+        //Håller referenser till de li element som skapats
+        let elements = document.querySelector("ul").lastChild.childNodes;
+        
+        //Lägger en eventlistener på alla li element
+        for(let i = 0; i < elements.length; i++){
+            elements[i].addEventListener("click", this.setCategory, true);
+        }
+    }
+    
     render(){
+        //Kategorierna som finns
+        let categories = ["Nöt", "Fläsk", "Kyckling", "Fisk", "Vegetariskt", "Veganskt", "Förrätt", "Varmrätt", "Efterrätt"];
+    
+        //Håller li elementen
+        let elements = [];
+    
+        //Lägger till li elementen
+        for(let i = 0; i < categories.length; i++){
+            elements.push(<li key={categories[i]}>{categories[i]}</li>);
+        }
+
         return(
             <ul>
                 <li>Kategorier</li>
                 <Link to="/search">
-                    <li onClick={this.setCategory}>Nöt</li>
-                    <li onClick={this.setCategory}>Fläsk</li>
-                    <li onClick={this.setCategory}>Kyckling</li>
-                    <li onClick={this.setCategory}>Fisk</li>
-                    <li onClick={this.setCategory}>Vegetariskt</li>
-                    <li onClick={this.setCategory}>Veganskt</li>
-                    <li onClick={this.setCategory}>Förrätt</li>
-                    <li onClick={this.setCategory}>Varmrätt</li>
-                    <li onClick={this.setCategory}>Efterrätt</li>
+                    {elements}
                 </Link>
             </ul>
         );

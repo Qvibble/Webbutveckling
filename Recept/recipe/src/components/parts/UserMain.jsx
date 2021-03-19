@@ -66,7 +66,7 @@ class UserMain extends React.Component {
                 <Link to="/recipe" onClick={saveId}>
                     <section id = {props.id}>
                         <h3>{props.name}</h3>
-                        <img src = {props.image}/>
+                        <img src = {"data:image/png;base64," + props.image}/>
                     </section>
                 </Link>
             );

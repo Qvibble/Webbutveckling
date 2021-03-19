@@ -51,7 +51,7 @@ class RecipeMain extends React.Component {
         if(this.state.fetchData[0].liked === true){
             styling = "25px solid deeppink";
         }
-        
+
         //html för sidan
         this.setState({content: 
             <>
@@ -60,7 +60,8 @@ class RecipeMain extends React.Component {
                     <h3>{this.state.fetchData[0].likes}</h3>            
                     <img src={heart}/>
                 </section>
-                <img src={this.state.fetchData[0].image}/>
+                <img src={"data:image/png;base64," + this.state.fetchData[0].image} alt={this.state.fetchData[0].name}/>
+                <p>Av: {this.state.fetchData[0].username}</p>
                 <h2>Ingredienser</h2>          
                 <ul>
                     {ingredients}
@@ -185,7 +186,7 @@ class RecipeMain extends React.Component {
                     username: sessionStorage.getItem("username"),
                     content: formElem.text.value
                 };
-                console.log("Save comment");
+
                 fetch("http://localhost:8080/Recipe/api/comments/save", {
                     method: "POST",
                     mode: 'cors',
@@ -223,7 +224,7 @@ class RecipeMain extends React.Component {
                 let formElem = event.target.parentNode.parentNode;
 
                 //Om textfätet är tomt, avaktivera knappen. Annars, aktivera den
-                if(formElem.text.value === ""){
+                if(formElem.text.value.trim() === ""){
                     formElem.submitBtn.disabled = true;
                     formElem.submitBtn.style.color = "gray";
                     formElem.submitBtn.style.cursor = "default";
@@ -363,8 +364,6 @@ class RecipeMain extends React.Component {
                         <button onClick={removeRecipe}>Ta bort receptet</button>
                     </div>
                 });
-            }else{
-                console.log("inte skapare");
             }
         });
         

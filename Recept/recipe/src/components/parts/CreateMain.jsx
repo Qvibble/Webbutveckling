@@ -32,6 +32,7 @@ class CreateMain extends React.Component{
         this.createRecipe = this.createRecipe.bind(this);
         this.checkFields = this.checkFields.bind(this);
         this.changeButtonState = this.changeButtonState.bind(this);
+        this.editRecipe = this.editRecipe.bind(this);
     }
 
     /**
@@ -83,9 +84,7 @@ class CreateMain extends React.Component{
             );
         }
 
-        ////Håller bilden b64
-        let image = "";
-        
+        //Skapar b64 av bilden
         let file = document.getElementById("createForm").image.files[0];
         let result = "";
         const toBase64 = file=> new Promise((reslove, reject) => {
@@ -147,6 +146,7 @@ class CreateMain extends React.Component{
 
         //Sträng som håller alla steg
         let steps = "";
+
         //Lägger ihop alla steg till en sträng
         for(let i = 0; i < this.state.createForm.steps.value; i++){
             steps += document.getElementById("step"+(i+1)).value.trim() + "|";
@@ -184,9 +184,7 @@ class CreateMain extends React.Component{
             );
         }
 
-        ////Håller bilden b64
-        let image = "";
-        
+        //Skapar b64 av bilden         
         let file = document.getElementById("createForm").image.files[0];
         let result = "";
         const toBase64 = file=> new Promise((reslove, reject) => {
@@ -398,8 +396,15 @@ class CreateMain extends React.Component{
         }
     }
 
+    componentWillUnmount(){
+        //tar bort receptet som skulle ändras från session storage
+        sessionStorage.removeItem("editRecipe");
+        console.log("unmounted");
+    }
+
     componentDidMount(){        
         /* Om användaren inte är inloggad, skicka användaren till logga in sidan */
+        window.addEventListener ("beforeunload",()=>{sessionStorage.removeItem("editRecipe")});
         if(sessionStorage.getItem("username") === null){
             window.location.replace("/login");
         }
@@ -424,12 +429,6 @@ class CreateMain extends React.Component{
             this.state.createForm.name.value = recipeData.name;
             //Beskrivning
             this.state.createForm.description.value = recipeData.description;
-            
-            console.log(this.state.createForm.submitBtn.value);
-            this.state.createForm.submitBtn.value = "Ändra receptet";
-            console.log(this.state.createForm.submitBtn.value);
-            console.log(this.state.createForm);
-            console.log(this.state.createForm.submitBtn.value);
 
             //Ingredienser
             //Skapar input fälten
@@ -456,7 +455,6 @@ class CreateMain extends React.Component{
             }
 
            //Kategorier
-            console.log(recipeData.categories);
             for(let i = 0; i < recipeData.categories.length; i++){
                 this.state.categories = this.state.categories.concat(firstLetterUpperCase(recipeData.categories[i].name));
                 this.state.createForm[recipeData.categories[i].name].style.backgroundColor = "tomato";
